@@ -1,0 +1,40 @@
+User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+        surname1:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+            column: surname_1
+        surname2:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+            column: surname_2
+        email:
+            type: string
+            nullable: false
+            length: 200
+            options:
+                fixed: false
+    lifecycleCallbacks: {  }

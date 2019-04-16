@@ -1,0 +1,85 @@
+index:
+    path: /
+    controller: App\Controller\HomeController::index
+    
+    #muestra últimos ejemplares añadidos/página de bienvenida
+#perfil:
+#    path: /perfil
+#    controller: 
+#        
+#ordenacion_precio_mayor:
+#    path: /ordenacion_precio_mayor
+#    controller: 
+#
+#ordenacion_precio_menor:
+#    path: /ordenacion_precio_menor
+#    controller: 
+#
+#ordenacion_titulo_alfabetico:
+#    path: /ordenacion_titulo_alfabetico
+#    controller: 
+#    Route::get('/mayor_precio','ProductosController@mayor');
+#Route::get('/menor_precio','ProductosController@menor');
+#Route::get('/cat_alfabetico','CategoriasController@alfabetico');
+#Route::get('/cat_mayor','CategoriasController@mayor');
+#Route::get('/cat_menor','CategoriasController@menor');
+
+#busqueda_avanzada:
+#    path: /busqueda_avanzada
+#    controller: 
+#        
+#carrito:
+#    path: /carrito
+#    controller: 
+#        
+#ubicacion:
+#    path: /ubicacion
+#    controller: 
+#        
+#ubicacion:
+#    path: /contacto
+#    controller: 
+    
+#animales:
+#    path: /animales/{nombre?}
+#    controller: App\Controller\HomeController::animales
+#    defaults: {nombre: 'No has elegido ninguno'}
+#    methods: [POST, GET]
+    ##si exisste defaults no es necesario interrogación
+
+redirigir:
+    path: /redirigir
+    controller: App\Controller\HomeController::redirigir
+    
+catalogo:
+    path: /catalogo
+    controller: App\Controller\CatalogueController::index
+    
+nuevo_catalogo:
+    path: /nuevo_catalogo
+    controller: App\Controller\CatalogueController::newCatalogueItem
+    
+guardar_catalogo:
+    path: /guardar_catalogo
+    controller: App\Controller\CatalogueController::catalogue_save
+    methods: [POST]
+    
+#    Route::get('/', 'CategoriasController@index');
+#//Route::resource('secciones', 'CategoriasController');
+#
+#Route::resource('categorias', 'CategoriasController');
+#Route::get('/buscar','ProductosController@buscar');
+#Route::resource('categorias.productos', 'ProductosController');
+#
+#Route::get('/home', 'HomeController@index')->name('home');
+#Route::get('/darBaja','HomeController@darBaja');
+#Route::get('/perfil', 'HomeController@perfil');
+#Route::get('/editar','HomeController@editar');
+#Route::get('/mapa', 'SoapController@show');
+#Route::get('/register/verify/{code}', 'HomeController@verify');
+#Route::get('/alfabetico','ProductosController@alfabetico');
+#Route::get('/mayor_precio','ProductosController@mayor');
+#Route::get('/menor_precio','ProductosController@menor');
+#Route::get('/cat_alfabetico','CategoriasController@alfabetico');
+#Route::get('/cat_mayor','CategoriasController@mayor');
+#Route::get('/cat_menor','CategoriasController@menor');
