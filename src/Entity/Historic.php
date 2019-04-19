@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * AuthCatalogue
+ * Historic
  *
- * @ORM\Table(name="auth_catalogue", indexes={@ORM\Index(name="id_catalogue", columns={"catalogue_id"}), @ORM\Index(name="id_authority", columns={"authority_id"})})
+ * @ORM\Table(name="historic", indexes={@ORM\Index(name="id_item", columns={"item_id"})})
  * @ORM\Entity
  */
-class AuthCatalogue
+class Historic
 {
     /**
      * @var int
@@ -50,24 +50,42 @@ class AuthCatalogue
     private $editingDate;
 
     /**
-     * @var \Catalogue
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Catalogue")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="catalogue_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="status", type="string", length=200, nullable=false)
      */
-    private $catalogue;
+    private $status;
 
     /**
-     * @var \Authority
+     * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Authority")
+     * @ORM\Column(name="purchase_value", type="decimal", precision=5, scale=2, nullable=false)
+     */
+    private $purchaseValue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sale_value", type="decimal", precision=5, scale=2, nullable=false)
+     */
+    private $saleValue;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="estimated_value", type="decimal", precision=5, scale=2, nullable=false)
+     */
+    private $estimatedValue;
+
+    /**
+     * @var \Item
+     *
+     * @ORM\ManyToOne(targetEntity="Item")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="authority_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      * })
      */
-    private $authority;
+    private $item;
 
     public function getId(): ?int
     {
@@ -122,26 +140,62 @@ class AuthCatalogue
         return $this;
     }
 
-    public function getCatalogue(): ?Catalogue
+    public function getStatus(): ?string
     {
-        return $this->catalogue;
+        return $this->status;
     }
 
-    public function setCatalogue(?Catalogue $catalogue): self
+    public function setStatus(string $status): self
     {
-        $this->catalogue = $catalogue;
+        $this->status = $status;
 
         return $this;
     }
 
-    public function getAuthority(): ?Authority
+    public function getPurchaseValue()
     {
-        return $this->authority;
+        return $this->purchaseValue;
     }
 
-    public function setAuthority(?Authority $authority): self
+    public function setPurchaseValue($purchaseValue): self
     {
-        $this->authority = $authority;
+        $this->purchaseValue = $purchaseValue;
+
+        return $this;
+    }
+
+    public function getSaleValue()
+    {
+        return $this->saleValue;
+    }
+
+    public function setSaleValue($saleValue): self
+    {
+        $this->saleValue = $saleValue;
+
+        return $this;
+    }
+
+    public function getEstimatedValue()
+    {
+        return $this->estimatedValue;
+    }
+
+    public function setEstimatedValue($estimatedValue): self
+    {
+        $this->estimatedValue = $estimatedValue;
+
+        return $this;
+    }
+
+    public function getItem(): ?Item
+    {
+        return $this->item;
+    }
+
+    public function setItem(?Item $item): self
+    {
+        $this->item = $item;
 
         return $this;
     }

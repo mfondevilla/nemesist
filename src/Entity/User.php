@@ -24,37 +24,91 @@ class User
     /**
      * @var string
      *
+     * @ORM\Column(name="email", type="string", length=200, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=200, nullable=false)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="surname_1", type="string", length=200, nullable=true)
+     * @ORM\Column(name="surname1", type="string", length=200, nullable=true)
      */
     private $surname1;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="surname_2", type="string", length=200, nullable=true)
+     * @ORM\Column(name="surname2", type="string", length=200, nullable=true)
      */
     private $surname2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=200, nullable=true)
+     * @ORM\Column(name="role", type="string", length=100, nullable=false)
      */
-    private $email;
+    private $role;
 
-    public function getId(): int
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=200, nullable=false)
+     */
+    private $password;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation_date", type="datetime", nullable=false)
+     */
+    private $creationDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="editing_date", type="datetime", nullable=false)
+     */
+    private $editingDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=20, nullable=false)
+     */
+    private $gender;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="age", type="integer", nullable=false)
+     */
+    private $age;
+
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): string
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -66,38 +120,98 @@ class User
         return $this;
     }
 
-    public function getSurname1(): string
+    public function getSurname1(): ?string
     {
         return $this->surname1;
     }
 
-    public function setSurname1(string $surname1): self
+    public function setSurname1(?string $surname1): self
     {
         $this->surname1 = $surname1;
 
         return $this;
     }
 
-    public function getSurname2(): string
+    public function getSurname2(): ?string
     {
         return $this->surname2;
     }
 
-    public function setSurname2(string $surname2): self
+    public function setSurname2(?string $surname2): self
     {
         $this->surname2 = $surname2;
 
         return $this;
     }
 
-    public function getEmail(): string
+    public function getRole(): ?string
     {
-        return $this->email;
+        return $this->role;
     }
 
-    public function setEmail(string $email): self
+    public function setRole(string $role): self
     {
-        $this->email = $email;
+        $this->role = $role;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
+
+        return $this;
+    }
+
+    public function getEditingDate(): ?\DateTimeInterface
+    {
+        return $this->editingDate;
+    }
+
+    public function setEditingDate(\DateTimeInterface $editingDate): self
+    {
+        $this->editingDate = $editingDate;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
 
         return $this;
     }
