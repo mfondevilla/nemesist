@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -314,7 +317,29 @@ class Catalogue
      * @ORM\Column(name="cite", type="string", length=250, nullable=true)
      */
     private $cite;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="catalogue")
+     */
+    
+    private $items;
+    
+    public function __construct(){
+        $items->items = new ArrayCollection();
+    }
 
+    
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Issue", mappedBy="catalogue")
+     */
+    
+    private $issues;
+    
+    public function __construct(){
+        $items->issues = new ArrayCollection();
+    }
+    
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -822,6 +847,20 @@ class Catalogue
         $this->cite = $cite;
 
         return $this;
+    }
+    
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems():Collection{
+        return $this->items;
+    }
+    
+    /**
+     * @return Collection|Issue[]
+     */
+    public function getIssues():Collection{
+        return $this->issues;
     }
 
 

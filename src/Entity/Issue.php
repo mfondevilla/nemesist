@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -171,12 +174,23 @@ class Issue
     /**
      * @var \Catalogue
      *
-     * @ORM\ManyToOne(targetEntity="Catalogue")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Catalogue", inversedBy="issues")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="catalogue_id", referencedColumnName="id")
      * })
      */
     private $catalogue;
+    
+      
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="issue")
+     */
+    
+    private $items;
+    
+    public function __construct(){
+        $items->items = new ArrayCollection();
+    } 
 
     public function getId(): ?int
     {
@@ -446,6 +460,10 @@ class Issue
 
         return $this;
     }
-
+    
+    public function getItems():Collection{
+        return $this->items;
+    }
+    
 
 }

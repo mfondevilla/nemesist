@@ -80,7 +80,7 @@ class Historic
     /**
      * @var \Item
      *
-     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="historics")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      * })
