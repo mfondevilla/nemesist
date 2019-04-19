@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -108,7 +109,7 @@ class Item
     /**
      * @var \Catalogue
      *
-     * @ORM\ManyToOne(targetEntity="Catalogue")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Catalogue", inversedBy="items")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="catalogue_id", referencedColumnName="id")
      * })
@@ -118,12 +119,23 @@ class Item
     /**
      * @var \Issue
      *
-     * @ORM\ManyToOne(targetEntity="Issue")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Issue", inversedBy="items")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="issue_id", referencedColumnName="id")
      * })
      */
     private $issue;
+    
+    
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Historic", inversedBy="items")
+     * 
+     */
+    private $historics;
+    
+    public function __construct(){
+        $this->historics = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -298,5 +310,11 @@ class Item
         return $this;
     }
 
+    /**
+     * @return Collection|Historic[]
+     */
+    public function getHistorics():Collection{
+        return $this->historics;
+    }
 
 }
