@@ -339,6 +339,20 @@ class Catalogue
         $items->issues = new ArrayCollection();
     }
     
+    /**
+     * Many Catalogues have Many Authorities.
+     * @ManyToMany(targetEntity="Authority")
+     * @JoinTable(name="auth_catalogue",
+     *      joinColumns={@JoinColumn(name="catalogue_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="authority_id", referencedColumnName="id")}
+     *      )
+     */
+    private $catalogues;
+    
+    public function __construct() {
+        $this->authorities = new ArrayCollection();
+    }
+
     
     public function getId(): ?int
     {
@@ -862,6 +876,5 @@ class Catalogue
     public function getIssues():Collection{
         return $this->issues;
     }
-
 
 }

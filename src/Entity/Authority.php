@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -69,6 +71,17 @@ class Authority
      * @ORM\Column(name="editing_date", type="datetime", nullable=false)
      */
     private $editingDate;
+    
+    
+    /**
+     * Many Authorities have Many Catalogues.
+     * @ManyToMany(targetEntity="Catalogue")
+     * @JoinTable(name="auth_catalogue",
+     *      joinColumns={@JoinColumn(name="authority_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="catalogue_id", referencedColumnName="id")}
+     *      )
+     */
+    private $catalogues;
 
     public function getId(): ?int
     {
@@ -160,4 +173,7 @@ class Authority
     }
 
 
+    public function __construct() {
+        $this->catalogues = new ArrayCollection();
+    }
 }
