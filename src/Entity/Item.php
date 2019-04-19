@@ -39,9 +39,23 @@ class Item
     /**
      * @var string
      *
-     * @ORM\Column(name="sale_value", type="decimal", precision=5, scale=2, nullable=false)
+     * @ORM\Column(name="sale_value", type="decimal", precision=5, scale=2, nullable=true)
      */
     private $saleValue;
+    
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="purchase_date", type="datetime", nullable=true)
+     */
+    private $purchaseDate;
+    
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="sale_date", type="datetime", nullable=true)
+     */
+    private $saleDate;
 
     /**
      * @var string|null
