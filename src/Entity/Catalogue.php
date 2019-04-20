@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -317,17 +316,21 @@ class Catalogue
      * @ORM\Column(name="cite", type="string", length=250, nullable=true)
      */
     private $cite;
-    
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Authority", mappedBy="catalogue")
+     */
+    private $authority;
+
+  
+        
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="catalogue")
      */
     
     private $items;
-    
-    public function __construct(){
-        $items->items = new ArrayCollection();
-    }
-
     
      /**
      * @ORM\OneToMany(targetEntity="App\Entity\Issue", mappedBy="catalogue")
@@ -336,24 +339,12 @@ class Catalogue
     private $issues;
     
     public function __construct(){
-        $items->issues = new ArrayCollection();
+        $this->items = new ArrayCollection();
+        $this->issues = new ArrayCollection();
+        $this->authority = new ArrayCollection();
     }
-    
-    /**
-     * Many Catalogues have Many Authorities.
-     * @ManyToMany(targetEntity="Authority")
-     * @JoinTable(name="auth_catalogue",
-     *      joinColumns={@JoinColumn(name="catalogue_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="authority_id", referencedColumnName="id")}
-     *      )
-     */
-    private $catalogues;
-    
-    public function __construct() {
-        $this->authorities = new ArrayCollection();
-    }
+   
 
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -862,7 +853,36 @@ class Catalogue
 
         return $this;
     }
+
+    /**
+     * @return Collection|Authority[]
+     */
+    public function getAuthority(): Collection
+    {
+        return $this->authority;
+    }
+
+    public function addAuthority(Authority $authority): self
+    {
+        if (!$this->authority->contains($authority)) {
+            $this->authority[] = $authority;
+            $authority->addCatalogue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthority(Authority $authority): self
+    {
+        if ($this->authority->contains($authority)) {
+            $this->authority->removeElement($authority);
+            $authority->removeCatalogue($this);
+        }
+
+        return $this;
+    }
     
+        
     /**
      * @return Collection|Item[]
      */

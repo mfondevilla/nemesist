@@ -3,6 +3,7 @@
 namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +31,20 @@ class Item
     private $status;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="purchase_date", type="date", nullable=true)
+     */
+    private $purchaseDate;
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="sale_date", type="date", nullable=true)
+     */
+    private $saleDate;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="purchase_value", type="decimal", precision=5, scale=2, nullable=true)
@@ -37,25 +52,11 @@ class Item
     private $purchaseValue;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="sale_value", type="decimal", precision=5, scale=2, nullable=true)
      */
     private $saleValue;
-    
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="purchase_date", type="datetime", nullable=true)
-     */
-    private $purchaseDate;
-    
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="sale_date", type="datetime", nullable=true)
-     */
-    private $saleDate;
 
     /**
      * @var string|null
@@ -79,9 +80,9 @@ class Item
     private $origin;
 
     /**
-     * @var string
+     * @var string|null
      *
-     * @ORM\Column(name="tracking", type="text", length=0, nullable=false)
+     * @ORM\Column(name="tracking", type="text", length=0, nullable=true)
      */
     private $tracking;
 
@@ -120,6 +121,7 @@ class Item
      */
     private $editingDate;
 
+
     /**
      * @var \Catalogue
      *
@@ -142,7 +144,7 @@ class Item
     
     
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Historic", inversedBy="items")
+     * @ORM\OneToMany(targetEntity="App\Entity\Historic", mappedBy="item")
      * 
      */
     private $historics;
@@ -164,6 +166,30 @@ class Item
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPurchaseDate(): ?\DateTimeInterface
+    {
+        return $this->purchaseDate;
+    }
+
+    public function setPurchaseDate(?\DateTimeInterface $purchaseDate): self
+    {
+        $this->purchaseDate = $purchaseDate;
+
+        return $this;
+    }
+
+    public function getSaleDate(): ?\DateTimeInterface
+    {
+        return $this->saleDate;
+    }
+
+    public function setSaleDate(?\DateTimeInterface $saleDate): self
+    {
+        $this->saleDate = $saleDate;
 
         return $this;
     }
@@ -233,7 +259,7 @@ class Item
         return $this->tracking;
     }
 
-    public function setTracking(string $tracking): self
+    public function setTracking(?string $tracking): self
     {
         $this->tracking = $tracking;
 
@@ -324,11 +350,5 @@ class Item
         return $this;
     }
 
-    /**
-     * @return Collection|Historic[]
-     */
-    public function getHistorics():Collection{
-        return $this->historics;
-    }
 
 }
