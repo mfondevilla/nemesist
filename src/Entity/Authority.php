@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -71,17 +71,29 @@ class Authority
      * @ORM\Column(name="editing_date", type="datetime", nullable=false)
      */
     private $editingDate;
-    
-    
+
     /**
-     * Many Authorities have Many Catalogues.
-     * @ManyToMany(targetEntity="Catalogue")
-     * @JoinTable(name="auth_catalogue",
-     *      joinColumns={@JoinColumn(name="authority_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="catalogue_id", referencedColumnName="id")}
-     *      )
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Catalogue", inversedBy="authority")
+     * @ORM\JoinTable(name="authority_catalogue",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="authority_id", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="catalogue_id", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $catalogues;
+    private $catalogue;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->catalogue = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -172,8 +184,30 @@ class Authority
         return $this;
     }
 
-
-    public function __construct() {
-        $this->catalogues = new ArrayCollection();
+    /**
+     * @return Collection|Catalogue[]
+     */
+    public function getCatalogue(): Collection
+    {
+        return $this->catalogue;
     }
+
+    public function addCatalogue(Catalogue $catalogue): self
+    {
+        if (!$this->catalogue->contains($catalogue)) {
+            $this->catalogue[] = $catalogue;
+        }
+
+        return $this;
+    }
+
+    public function removeCatalogue(Catalogue $catalogue): self
+    {
+        if ($this->catalogue->contains($catalogue)) {
+            $this->catalogue->removeElement($catalogue);
+        }
+
+        return $this;
+    }
+
 }

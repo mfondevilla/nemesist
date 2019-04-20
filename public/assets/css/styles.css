@@ -18,3 +18,11 @@ and open the template in the editor.
     text-align: center;
 }
 
+#logo_text {
+    color:rgb(0,176,240);
+    font-weight:bold;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 4em;
+    
+}

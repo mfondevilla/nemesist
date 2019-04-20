@@ -1,69 +1,29 @@
 index:
     path: /
     controller: App\Controller\HomeController::index
+ 
     
-    #muestra últimos ejemplares añadidos/página de bienvenida
-#perfil:
-#    path: /perfil
-#    controller: 
-#        
-#ordenacion_precio_mayor:
-#    path: /ordenacion_precio_mayor
-#    controller: 
-#
-#ordenacion_precio_menor:
-#    path: /ordenacion_precio_menor
-#    controller: 
-#
-#ordenacion_titulo_alfabetico:
-#    path: /ordenacion_titulo_alfabetico
-#    controller: 
-#    Route::get('/mayor_precio','ProductosController@mayor');
-#Route::get('/menor_precio','ProductosController@menor');
-#Route::get('/cat_alfabetico','CategoriasController@alfabetico');
-#Route::get('/cat_mayor','CategoriasController@mayor');
-#Route::get('/cat_menor','CategoriasController@menor');
-
-#busqueda_avanzada:
-#    path: /busqueda_avanzada
-#    controller: 
-#        
-#carrito:
-#    path: /carrito
-#    controller: 
-#        
-#ubicacion:
-#    path: /ubicacion
-#    controller: 
-#        
-#ubicacion:
-#    path: /contacto
-#    controller: 
-    
-#animales:
-#    path: /animales/{nombre?}
-#    controller: App\Controller\HomeController::animales
-#    defaults: {nombre: 'No has elegido ninguno'}
-#    methods: [POST, GET]
-    ##si exisste defaults no es necesario interrogación
-
-redirigir:
-    path: /redirigir
-    controller: App\Controller\HomeController::redirigir
-    
-catalogo:
+catalogue:
     path: /catalogo
-    controller: App\Controller\CatalogueController::index
+    controller: App\Controller\CatalogueController::all_catalogue
     
-nuevo_catalogo:
-    path: /nuevo_catalogo
-    controller: App\Controller\CatalogueController::newCatalogueItem
+first_catalogue:
+    path: /primero
+    controller: App\Controller\CatalogueController::first_catalogue
+
+
+login:
+    path: /login
+    controller: App\Controller\UserController::login
     
-guardar_catalogo:
-    path: /guardar_catalogo
-    controller: App\Controller\CatalogueController::catalogue_save
-    methods: [POST]
     
+register_user:
+    path: /registro_usuario
+    controller: App\Controller\UserController::register_user
+        
+logout:
+    path: /logout
+   
 #    Route::get('/', 'CategoriasController@index');
 #//Route::resource('secciones', 'CategoriasController');
 #
