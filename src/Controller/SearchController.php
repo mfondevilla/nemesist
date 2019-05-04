@@ -1,58 +1,72 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use App\Repository\CatalogueRepository;
+use App\Form\SimplesearchType;
+use App\Form\AdvancedSearchType;
 use App\Entity\Catalogue;
-//use Symfony\Component\Routing\Annotation\Route;
 
-class SearchController extends AbstractController {
-  
-
-    public function simple_search(){//mostrar formulario de búsqueda
-       
-        $form = $this->createFormBuilder(null)
-                ->add('query', TextType::class)
-                ->add('search', SubmitType::class, [
-                    'attr'=>[
-                        'class'=>'btn btn-primary'
-                    ]
-                ])
-                ->getForm();
-        
-        return $this->render('catalogue/simple_search.html.twig', ['form'=>$form->createView()]);
+class SearchController extends AbstractController
+{
+    /**
+     * @Route("/search", name="search")
+     */
+    public function index()
+    {
+        return $this->render('search/index.html.twig', [
+            'controller_name' => 'SearchController',
+        ]);
     }
     
-    /**
-     * 
-     * @param \App\Controller\Request $request
-     */
-    public function result_search(Request $request){
-        var_dump($request);
-        $result = $this->getDoctrine()
-            ->getRepository(Catalogue::class)
-            ->findBy(['title' => $request]);
 
-
-        if ($result) {
-
-        return $this->render('catalogue/result.html.twig',  ['result' => $result]);    
-
-        }else{
-
-        return $this->render('catalogue/result.html.twig', [
-            'error' => 'No existen resultados']);
-
+    public function simplesearch(Request $request, CatalogueRepository $catalogueRepository){
+        
+        $simplesearchForm = $this->createForm(SimplesearchType::class);
+        if($simplesearchForm->handleRequest($request)->isSubmitted() && $simplesearchForm->isValid()){
+          $criteria = $simplesearchForm->getData();
+        //  dd($criteria);
+          
+            $catalogues = $catalogueRepository->simpleSearchCatalogue($criteria);
+              dd($catalogues);
         }
+        return $this->render('search/simple_search.html.twig',[
+            'search_form' => $simplesearchForm->createView(),
+        ]);
     }
+    
+    
+    public function advancedSearch(Request $request, CatalogueRepository $catalogueRepository){
+        
+        $advancedSearchForm = $this->createForm(AdvancedSearchType::class);
+        if($advancedSearchForm->handleRequest($request)->isSubmitted() && $advancedSearchForm->isValid()){
+          $criteria = $advancedSearchForm->getData();
+         // dd($criteria);
+          
+            $catalogues = $catalogueRepository->advancedSearchCatalogue($criteria);
+              dd($catalogues);
+        }
+        return $this->render('search/advanced_search.html.twig',[
+            'search_form' => $advancedSearchForm->createView(),
+        ]);
+    }
+     public function customSearch(Request $request, CatalogueRepository $catalogueRepository){
+        
+        $customSearchForm = $this->createForm(AdvancedSearchType::class);
+        if($customSearchForm->handleRequest($request)->isSubmitted() && $customSearchForm->isValid()){
+          $criteria = $customSearchForm->getData();
+        //  dd($criteria);
+          
+            $catalogues = $catalogueRepository->advancedSearchCatalogue($criteria);
+              dd($catalogues);
+        }
+        return $this->render('search/custom_search.html.twig',[
+            'search_form' => $customSearchForm->createView(),
+        ]);
+    }
+    
+  
 }

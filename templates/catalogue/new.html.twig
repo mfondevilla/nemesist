@@ -1,0 +1,27 @@
+{% extends 'layouts/master.html.twig' %}
+
+{% block title %}Controlador catalogue{% endblock %}
+
+{% block body %}
+
+  {% block content %}
+<div class="example-wrapper">
+    <h1>Búsqueda simple</h1>
+
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/pruebasymfony/src/Controller/CatalogueController.php'|file_link(0) }}">src/Controller/CatalogueController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/pruebasymfony/templates/catalogue/entire_catalogue.html.twig'|file_link(0) }}">templates/catalogue/entire_catalogue.html.twig</a></code></li>
+    </ul>
+</div>
+  {% if form %}      
+   {{ form(form, {
+        'attr':{ 'action':path('result_search')}
+        }) }}
+        
+   {% endif %}     
+        
+        
+    
+ {% endblock%}
+{% endblock %}

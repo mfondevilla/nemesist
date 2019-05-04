@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{% extends 'layouts/master.html.twig' %}
 
-<title>Hello UserController!</title>
+{% block title %}Controlador user{% endblock %}
 
 {% block body %}
 
@@ -8,18 +8,13 @@
     {% block content %}
         {% if error %}
          <div class="alert alert-error">
-             {{ error.mesageKey|trans(error.messagedata,'security') }}
+             <p>Las credenciales no son correctas</p>
          </div>
             
         {% endif %}
         
          {% if app.user %}
-        
-             {{ dump(app.user) }}
-         
-        {% endif %}
-        
-        <form action="{{ path('login') }}" method="POST">
+         <form action="{{ path('login') }}" method="POST">
             <label for="username">Email:</label>
             <input type="email" id="username" name="_username" value="{{ last_username }}" />
             
@@ -28,8 +23,13 @@
             
             <input type="submit" value="Entrar" />
         </form>
+         
+        {% endif %}
+        
+       
         
         
     {% endblock %}
+        {% endblock %}
 
-{% endblock %}
+

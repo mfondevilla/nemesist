@@ -75,7 +75,7 @@ class Authority
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Catalogue", inversedBy="authority")
+     * @ORM\ManyToMany(targetEntity="Catalogue", inversedBy="authority", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="authority_catalogue",
      *   joinColumns={
      *     @ORM\JoinColumn(name="authority_id", referencedColumnName="id")
