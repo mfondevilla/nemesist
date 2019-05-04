@@ -320,7 +320,7 @@ class Catalogue
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Authority", mappedBy="catalogue")
+     * @ORM\ManyToMany(targetEntity="Authority", mappedBy="catalogue", cascade={"persist", "remove"})
      */
     private $authority;
 

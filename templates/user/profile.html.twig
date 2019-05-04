@@ -1,0 +1,23 @@
+{% extends 'layouts/master.html.twig' %}
+
+{% block title %}Controlador user{% endblock %}
+
+{% block body %}
+
+    
+    {% block content %}
+        This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/nemesist/src/Controller/AuthorityController.php'|file_link(0) }}">src/Controller/AuthorityController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/nemesist/templates/authority/index.html.twig'|file_link(0) }}">templates/authority/index.html.twig</a></code></li>
+    </ul>
+</div>  
+<p>
+     {{ user.name }}
+       <a class="btn btn-primary" href="{{ path('edit_profile', {'id': user.id}) }}">Editar</a>
+       <a class="btn btn-danger"  href="{{ path('delete_profile', {'id': user.id}) }}">Borrar</a> 
+</p>
+        {% endblock %}
+            {% endblock %}
+
+

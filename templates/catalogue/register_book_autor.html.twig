@@ -1,0 +1,22 @@
+{% if autores|length > 0 %}
+    <form action="{{ path('register_book_autor_action') }}" method="POST">
+        <table>
+            <tr>
+                <th></th>
+                <th>Nombre</th>
+                <th>Tipo Autor</th>
+            </tr>
+            {% for autor in autores %}
+                <tr>
+                    <td><input type="checkbox" id="{{ autor.id }}" name="{{ autor.id }}" value="{{ autor.id }}"><br></td>
+                    <td>{{ autor.name }}</td>
+                    <td>{{ autor.typeauth }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+        <input type="submit" value="Enviar" />
+    </form>
+{% else %}
+    <p>No hay autores disponibles en este momento.</p>
+{% endif %}

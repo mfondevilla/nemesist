@@ -9,16 +9,27 @@ use App\Form\RegisterType;
 use App\Entity\User;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 
 class UserController extends AbstractController
 {
    
+     public function profile(UserInterface $user)
+    {
+        return $this->render('user/profile.html.twig', [
+            'user' => $user
+        ]);
+    }
+    
+    
     public function login(AuthenticationUtils $authentication)
     {
         $error = $authentication->getLastAuthenticationError();
         $lastUsername = $authentication->getLastUsername();
-
+  
+        
         return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -51,5 +62,39 @@ class UserController extends AbstractController
          return $this->render('user/register.html.twig', [
           'form'=>$form->createView()
         ]);
+    }
+    
+    public function edit_profile(Request $request, UserInterface $user) {
+       
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$task->setCreateAt(new \DateTime('now'));
+            //$task->setUser($user);
+           
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            
+            return $this->render('home/index.html.twig', [
+                'user' => $user
+            ]);
+        }
+        
+        return $this->render('user/register.html.twig', [
+            'user' => $user,
+            'form' => $form->createView()
+        ]);
+    }
+    
+      public function delete_profile(UserInterface $user) {
+
+       
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+        
+        return $this->render('home/index.html.twig');
     }
 }

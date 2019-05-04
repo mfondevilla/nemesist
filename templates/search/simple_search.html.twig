@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<title>Hello SearchController!</title>
+
+{% block body %}
+
+          {% block content %}
+<div class="example-wrapper">
+  {{ form(search_form) }}
+
+ 
+</div>
+        
+ 
+                     
+ {% endblock%}
+ {% block scripts %}
+     
+     <script>
+     $(document).ready(function(){
+     $('select').formSelect();
+     });
+     </script>
+ {% endblock %}
+{% endblock %}

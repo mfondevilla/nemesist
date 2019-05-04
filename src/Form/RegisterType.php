@@ -17,6 +17,6 @@ class RegisterType extends AbstractType {
                 ->add('surname2', TextType::class, array('label'=>'Segundo Apellido'))
                 ->add('email', EmailType::class, array('label'=>'Email'))
                 ->add('password', PasswordType::class, array('label'=>'Contraseña'))
-                ->add('submit', SubmitType::class, array('label'=>'Registrar'));
+                ->add('submit', SubmitType::class, array('label'=>'Guardar'));
     }
 }

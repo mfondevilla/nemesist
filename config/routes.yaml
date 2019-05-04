@@ -2,6 +2,29 @@ index:
     path: /
     controller: App\Controller\HomeController::index
  
+manage_authority:
+    path: /autores
+    controller: App\Controller\AuthorityController::index
+   
+new_author:
+    path: /new_author
+    controller: App\Controller\AuthorityController::new_author
+ 
+edit_delete_author:
+    path: /editar_borrar_autor
+    controller: App\Controller\AuthorityController::edit_delete
+  
+edit_author:
+    path: /editar_autor/{id}
+    controller: App\Controller\AuthorityController::edit
+    
+delete_author:
+    path: /borrar_autor/{id}
+    controller: App\Controller\AuthorityController::delete
+
+search_author:
+    path: /buscar_autor
+    controller: App\Controller\AuthorityController::search_author
     
 catalogue:
     path: /catalogo
@@ -11,10 +34,32 @@ first_catalogue:
     path: /primero
     controller: App\Controller\CatalogueController::first_catalogue
 
+search_catalogue:
+    path: /buscar_nav
+    controller: App\Controller\SearchController::simpleSearch
+    
+advanced_search:
+    path: /busqueda_avanzada
+    controller: App\Controller\SearchController::advancedSearch
+    
+custom_search:
+    path: /busqueda_personalizada
+    controller: App\Controller\SearchController::customSearch
 
 login:
     path: /login
     controller: App\Controller\UserController::login
+
+profile:
+    path: /perfil
+    controller: App\Controller\UserController::profile
+edit_profile:
+    path: /editar_perfil
+    controller: App\Controller\UserController::edit_profile
+delete_profile:
+    path: /delete_perfil
+    controller: App\Controller\UserController::delete_profile
+
     
     
 register_user:
@@ -23,23 +68,31 @@ register_user:
         
 logout:
     path: /logout
-   
-#    Route::get('/', 'CategoriasController@index');
-#//Route::resource('secciones', 'CategoriasController');
-#
-#Route::resource('categorias', 'CategoriasController');
-#Route::get('/buscar','ProductosController@buscar');
-#Route::resource('categorias.productos', 'ProductosController');
-#
-#Route::get('/home', 'HomeController@index')->name('home');
-#Route::get('/darBaja','HomeController@darBaja');
-#Route::get('/perfil', 'HomeController@perfil');
-#Route::get('/editar','HomeController@editar');
-#Route::get('/mapa', 'SoapController@show');
-#Route::get('/register/verify/{code}', 'HomeController@verify');
-#Route::get('/alfabetico','ProductosController@alfabetico');
-#Route::get('/mayor_precio','ProductosController@mayor');
-#Route::get('/menor_precio','ProductosController@menor');
-#Route::get('/cat_alfabetico','CategoriasController@alfabetico');
-#Route::get('/cat_mayor','CategoriasController@mayor');
-#Route::get('/cat_menor','CategoriasController@menor');
+
+register_book:
+    path: /register_book
+    controller: App\Controller\CatalogueController::register_book
+
+register_book_autor:
+    path: /register_book_autor/{id}
+    controller: App\Controller\CatalogueController::register_book_autor
+
+buscar_ini:
+    path: /buscar_ini
+    controller: App\Controller\AuthorityController::buscar_ini
+    
+buscar_autor:
+    path: /buscar_autor/{id}
+    controller: App\Controller\AuthorityController::buscar
+    
+select_buscar_autor:
+    path: /select_buscar_autor/{id}
+    controller: App\Controller\AuthorityController::select_buscar_autor
+    
+buscar_catalogue:
+    path: /buscar_catalogue
+    controller: App\Controller\CatalogueController::buscar
+    
+asign_authors:
+    path: /asign_authors/{id}
+    controller: App\Controller\AuthorityController::asign_authors
