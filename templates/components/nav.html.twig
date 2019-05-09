@@ -9,6 +9,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                
             </button>
         <a href="#" class="visible-xs-inline hide navbar-brand"></a>
         <div class="hide visible-xs-inline col-xs-1 navbar-brand icon-s glyphicon glyphicon-user"></div>
@@ -23,7 +25,8 @@
                 <li class="col-sm-2 active"><a href="{{ path('register_book') }}">Registrar Libro</a></li>
                 <li class="col-sm-2 active"><a href="{{ path('buscar_catalogue') }}">Buscar Libro</a></li>
                 <li class="col-sm-2 active"><a class="centrado" href="#">Cesta</a></li>
-                <li class="col-sm-2 active"><a class="centrado" href="busqueda_simple">Búsqueda</a></li>
+                <li class="col-sm-2 active"><a href="{{ path('item_maintenance') }}">Mantenimiento Items</a></li>
+                
                 {% if app.user %}
                     <li class="col-sm-2 active"><a class="centrado" href="{{ path('logout') }}">Cerrar Sesión</a></li>
                     <li class="col-sm-2 active"><a class="centrado" href="{{ path('profile') }}">Editar perfil</a></li>

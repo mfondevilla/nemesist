@@ -1,0 +1,47 @@
+{% extends 'layouts/master.html.twig' %}
+
+{% block title %}Busqueda de items{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+<div class="example-wrapper">
+    <h2>Items</h2>
+    
+    {% if catalogo is defined %}
+        <p>{{ catalogo.title }}</p>
+        <a href="{{ path('new_item', {'id':catalogo.id}) }}" class="btn-show">Crear nuevo item a este libro</a>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Estado</th>
+                <th>Fecha adquisición</th>
+                <th>Precio compra</th>
+                <th>Precio venta</th>
+                <th>url imagen</th>
+                 <th>editar</th>
+                <th>Eliminar</th>
+            </tr>
+          
+        {% for item in catalogo.items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.purchaseDate|date('Y-m-d')}}</td>
+                <td>{{ item.purchaseValue }}</td>
+                <td>{{ item.saleValue }}</td>
+                <td>{{ item.cover }}</td>
+                <td>{{ item.origin }}</td>
+                <td><a href="{{ path('edit_item', {'id':item.id}) }}" class="btn-show">Editar</a></td>
+               <td><a href="{{ path('delete_item', {'id':item.id}) }}" class="btn-show">Eliminar</a></td>
+            </tr>  
+             
+        {% endfor %}
+        
+        </table>
+    {% endif %}
+    
+    
+</div>
+{% endblock %}
+{% endblock %}
