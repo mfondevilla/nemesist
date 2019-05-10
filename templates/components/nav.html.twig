@@ -2,14 +2,16 @@
 <nav role="navigation" class="container navbar navbar-default navbar-inverse">
     <div class="navbar-header">
         <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
         <a href="#" class="visible-xs-inline hide navbar-brand"></a>
         <div class="hide visible-xs-inline col-xs-1 navbar-brand icon-s glyphicon glyphicon-user"></div>
         <div class="hide visible-xs-inline col-xs-1 navbar-brand icon-s glyphicon glyphicon-search"></div>
@@ -23,7 +25,10 @@
                 <li class="col-sm-2 active"><a href="{{ path('register_book') }}">Registrar Libro</a></li>
                 <li class="col-sm-2 active"><a href="{{ path('buscar_catalogue') }}">Buscar Libro</a></li>
                 <li class="col-sm-2 active"><a class="centrado" href="#">Cesta</a></li>
-                <li class="col-sm-2 active"><a class="centrado" href="busqueda_simple">Búsqueda</a></li>
+                <li class="col-sm-2 active"><a href="{{ path('item_maintenance') }}">Mantenimiento Items</a></li>
+                <li class="col-sm-2 active"><a href="{{ path('issue_maintenance') }}">Mantenimiento Revistas
+                    </a></li>
+                
                 {% if app.user %}
                     <li class="col-sm-2 active"><a class="centrado" href="{{ path('logout') }}">Cerrar Sesión</a></li>
                     <li class="col-sm-2 active"><a class="centrado" href="{{ path('profile') }}">Editar perfil</a></li>

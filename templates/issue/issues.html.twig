@@ -1,0 +1,45 @@
+{% extends 'layouts/master.html.twig' %}
+
+{% block title %}Busqueda de números{% endblock %}
+
+{% block body %}
+    {% block content %}
+
+<div class="example-wrapper">
+    <h2>Items</h2>
+    <a href="{{ path('new_issue', {'id':catalogo.id}) }}" class="btn-show">Añadir número</a>
+	   
+    {% if catalogo is defined %}
+        <p>{{ catalogo.title }}</p>
+        <a href="{{ path('new_item', {'id':catalogo.id}) }}" class="btn-show">Crear nuevo item a este libro</a>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Título</th>
+                <th>Volumen</th>
+                <th>Fecha</th>
+                <th>Número</th>
+                 <th>editar</th>
+                <th>Eliminar</th>
+            </tr>
+          
+        {% for issue in catalogo.issues %}
+            <tr>
+                <td>{{ issue.id }}</td>
+                <td>{{ issue.title }}</td>
+                <td>{{ issue.volume }}</td>
+                <td>{{ issue.year ~ '-' ~  issue.month  ~ '-' ~ issue.day }}</td>
+                <td>{{ issue.number }}</td>
+                <td><a href="{{ path('edit_issue', {'id':issue.id}) }}" class="btn-show">Editar</a></td>
+                <td><a href="{{ path('delete_issue', {'id':issue.id}) }}" class="btn-show">Eliminar</a></td>
+            </tr>  
+             
+        {% endfor %}
+        
+        </table>
+    {% endif %}
+    
+    
+</div>
+{% endblock %}
+{% endblock %}

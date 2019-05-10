@@ -1,0 +1,42 @@
+{% extends 'layouts/master.html.twig' %}
+
+{% block title %}Busqueda de items por catálogo{% endblock %}
+
+{% block body %}
+{% block content %}
+<div class="example-wrapper">
+    <h2>Busqueda de números de revista por Revista</h2>
+    <form action="{{ path('issue_maintenance') }}" method="POST">
+        
+        <label for="search">Buscar: </label>
+        <input type="text" id="search" name="search" value ="" />
+        
+        <input type="submit" value="Buscar" name = "item_maintenance"/>
+    </form>
+    {% if catalogues|length > 0 %}
+        <table>
+            <tr>
+                <th>Titulo</th>
+                <th>Subtitulo</th>
+                <th>Idioma</th>
+                <th>Periodicidad</th>
+            </tr>
+            {% for catalogue in catalogues %} 
+              
+                <tr>
+                    <td>{{ catalogue.title }}</td>
+                    <td>{{ catalogue.subtitle }}</td>
+                    <td>{{ catalogue.language }}</td>
+                    <td>{{ catalogue.periodicity }}</td>
+                    <td class="buttons">
+                        <a href="{{ path('display_issues', {'id':catalogue.id}) }}" class="btn-show">Ver Números</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>{{ message }}</p>
+    {% endif %}
+</div>
+{% endblock %}
+{% endblock %}

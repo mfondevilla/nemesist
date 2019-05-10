@@ -60,8 +60,7 @@ delete_profile:
     path: /delete_perfil
     controller: App\Controller\UserController::delete_profile
 
-    
-    
+
 register_user:
     path: /registro_usuario
     controller: App\Controller\UserController::register_user
@@ -92,7 +91,43 @@ select_buscar_autor:
 buscar_catalogue:
     path: /buscar_catalogue
     controller: App\Controller\CatalogueController::buscar
+
+item_maintenance:
+    path: /buscar_item
+    controller: App\Controller\ItemController::buscar
     
-asign_authors:
-    path: /asign_authors/{id}
-    controller: App\Controller\AuthorityController::asign_authors
+issue_maintenance:
+    path: /buscar_issue
+    controller: App\Controller\IssueController::buscar
+
+display_items:
+    path: /ver_items/{id}
+    controller: App\Controller\ItemController::display_items
+    
+display_issues:
+    path: /ver_numeros/{id}
+    controller: App\Controller\IssueController::display_issues
+
+new_item:
+    path: /crear_item/{id}
+    controller: App\Controller\ItemController::create_item
+    
+new_issue:
+    path: /crear_issue/{id}
+    controller: App\Controller\IssueController::create_issue
+    
+edit_item:
+    path: /editar_item/{id}
+    controller: App\Controller\ItemController::edit_item
+    
+edit_issue:
+    path: /editar_issue/{id}
+    controller: App\Controller\IssueController::edit_issue
+    
+delete_item:
+    path: /eliminar_item/{id}
+    controller: App\Controller\ItemController::delete_item
+    
+delete_issue:
+    path: /eliminar_issue/{id}
+    controller: App\Controller\IssueController::delete_issue

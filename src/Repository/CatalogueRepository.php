@@ -32,6 +32,18 @@ class CatalogueRepository extends ServiceEntityRepository{
        
     }
     
+     public function findMagazinesByTitle($title)
+    {
+        return $this->createQueryBuilder('b')
+               ->where("b.title LIKE :title")
+                ->andWhere("b.periodicity !=''")
+                ->andWhere("b.periodicity IS NOT NULL")
+                ->setParameter("title", "%{$title}%")
+                ->getQuery()
+                ->getResult();
+       
+    }
+    
         public function advancedSearchCatalogue($criteria)
     {
               $qb =  $this->createQueryBuilder('b')

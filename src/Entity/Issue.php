@@ -54,7 +54,7 @@ class Issue
     /**
      * @var string
      *
-     * @ORM\Column(name="signature_text", type="string", length=100, nullable=false)
+     * @ORM\Column(name="signature_text", type="string", length=100, nullable=true)
      */
     private $signatureText;
 
