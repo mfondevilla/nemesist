@@ -1,5 +1,4 @@
-{% extends 'layouts/master.html.twig' %}
-
+{% extends 'base.html.twig' %}
 {% block title %}Busqueda de items por catálogo{% endblock %}
 
 {% block body %}
@@ -11,7 +10,7 @@
         <label for="search">Buscar: </label>
         <input type="text" id="search" name="search" value ="" />
         
-        <input type="submit" value="Buscar" name = "item_maintenance"/>
+        <input type="submit" value="Buscar" name = "issue_maintenance"/>
     </form>
     {% if catalogues|length > 0 %}
         <table>

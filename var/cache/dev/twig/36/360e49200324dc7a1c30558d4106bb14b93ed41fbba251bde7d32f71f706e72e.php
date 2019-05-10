@@ -75,6 +75,6 @@ class __TwigTemplate_ae619cc1caf327ce7acfc5f7d4a2b7b3cddaffc3192b3e23ed2bb521efb
               <h1>Footer twig</h1>
         </footer>
   
-{% endblock %}", "components/footer.html.twig", "C:\\xampp\\htdocs\\pruebaSymfony\\templates\\components\\footer.html.twig");
+{% endblock %}", "components/footer.html.twig", "C:\\xampp\\htdocs\\nemesist\\templates\\components\\footer.html.twig");
     }
 }

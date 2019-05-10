@@ -49,11 +49,7 @@ class __TwigTemplate_1441584a687e318afbc705b4157848788b873ee770b6d80f2b533930615
      
     <div class=\"col-md-7\">
      
-        <img class=\"col-sm-2\" id=\"logo_portada\" src=\"";
-        // line 6
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/images/brujo.png"), "html", null, true);
-        echo "\" alt=\"Logo\" />
-        <h1 id=\"logo_text\">El señor de los libros</h1>
+         <h1 id=\"logo_text\">mneme<span style=\"font-family:Consolas; font-style: normal\">sist</span></h1>
        
      <!--   <section id=\"search\" class=\"hidden-xs col-sm-6 col-md-5 col-md-offset-1 col-lg-offset-1\">
 
@@ -77,7 +73,7 @@ class __TwigTemplate_1441584a687e318afbc705b4157848788b873ee770b6d80f2b533930615
 
     public function getDebugInfo()
     {
-        return array (  54 => 6,  48 => 2,  30 => 1,);
+        return array (  48 => 2,  30 => 1,);
     }
 
     public function getSourceContext()
@@ -87,8 +83,7 @@ class __TwigTemplate_1441584a687e318afbc705b4157848788b873ee770b6d80f2b533930615
      
     <div class=\"col-md-7\">
      
-        <img class=\"col-sm-2\" id=\"logo_portada\" src=\"{{ asset('assets/images/brujo.png') }}\" alt=\"Logo\" />
-        <h1 id=\"logo_text\">El señor de los libros</h1>
+         <h1 id=\"logo_text\">mneme<span style=\"font-family:Consolas; font-style: normal\">sist</span></h1>
        
      <!--   <section id=\"search\" class=\"hidden-xs col-sm-6 col-md-5 col-md-offset-1 col-lg-offset-1\">
 
@@ -97,6 +92,6 @@ class __TwigTemplate_1441584a687e318afbc705b4157848788b873ee770b6d80f2b533930615
     </header>
     
 {% endblock %}
-", "components/header.html.twig", "C:\\xampp\\htdocs\\pruebaSymfony\\templates\\components\\header.html.twig");
+", "components/header.html.twig", "C:\\xampp\\htdocs\\nemesist\\templates\\components\\header.html.twig");
     }
 }

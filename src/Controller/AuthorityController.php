@@ -89,7 +89,7 @@ class AuthorityController extends AbstractController
 //            guardando únicamente la relación (en el caso de querer registrar una relación entre objetos existentes en la bdd)
     //en el caso de que existiera una de las entidades no hace falta recuperar los objetos del repositorio. Se hace un add
    // del objeto que existe (al que no existe) y al persistir se persiste el que no existe y la relación correspondiente
-      public function select_buscar_autor(Authority $author)
+        public function select_buscar_autor(Authority $author)
     {
         if (!$author)
         {
@@ -97,29 +97,31 @@ class AuthorityController extends AbstractController
         }
         if (isset($_SESSION['catalogue']))
         {
-            $em = $this->getDoctrine()->getManager();
-            $cata_repo = $this->getDoctrine()->getRepository(Catalogue::Class);
-            $auth_repo = $this->getDoctrine()->getRepository(Authority::Class);
-
             $catalogue_session = $_SESSION['catalogue'];
-            $catalogues = $cata_repo->findBy([
-                        'id'=>$catalogue_session->getId()
+            $em = $this->getDoctrine()->getManager();
+            $repository_cat = $this->getDoctrine()->getRepository(Catalogue::Class);
+            $repository_aut = $this->getDoctrine()->getRepository(Authority::Class);
+            
+            $catalogues = $repository_cat->findBy([
+                        'id' => $catalogue_session->getId()
                     ]);
-            $authorities = $auth_repo->findBy([
-                        'id'=>$author->getId()
+            $authorities = $repository_aut->findBy([
+                        'id' => $author->getId()
                     ]);
-//            $catalogue = new Catalogue();
-//            $catalogue->setTitle("Holaaaaaaaaa");
-//            $catalogue->setLanguage("Spanishh");
-//            $catalogue->addAuthority($autor);
             $catalogue = $catalogues[0];
             $authority = $authorities[0];
+            
             $catalogue->addAuthority($authority);
             $em->persist($catalogue);
             $em->flush();
+            
+            return $this->render('authority/buscar_autor.html.twig', [
+            'autores' => null,
+            'message' => "",
+            'catalogo' => $catalogue,
+        ]);
         } 
-        
-        
+
         return $this->render('authority/buscar_autor.html.twig', [
             'autores' => null,
             'message' => "",

@@ -1,9 +1,9 @@
-{% extends 'layouts/master.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Busqueda de autores{% endblock %}
 
 {% block body %}
-{% block content %}
+
 <div class="example-wrapper">
     <h2>Busqueda de Libros</h2>
     <form action="{{ path('buscar_catalogue') }}" method="POST">
@@ -26,7 +26,9 @@
                     <td>{{ catalogue.subtitle }}</td>
                     <td>{{ catalogue.language }}</td>
                     <td class="buttons">
-                        <a href="{{ path('asign_authors', {'id':catalogue.id}) }}" class="btn-show">Añadir Autor</a>
+                        <a href="{{ path('buscar_autor', {'id':catalogue.id}) }}" class="btn-show">Añadir Autor</a>
+                        <a href="{{ path('edit_catalogue', {'id':catalogue.id}) }}" class="btn-show">Editar</a>
+                        <a href="{{ path('delete_catalogue', {'id':catalogue.id}) }}" class="btn-show">Eliminar</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -35,5 +37,4 @@
         <p>{{ message }}</p>
     {% endif %}
 </div>
-{% endblock %}
 {% endblock %}

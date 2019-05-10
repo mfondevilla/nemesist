@@ -198,6 +198,6 @@ class __TwigTemplate_e74d05097fb4d17ae56d53b896204202bc57782fbfb6db2a0f94a8c44d4
     {% endfor %}
     </tbody>
 </table>
-", "@Twig/Exception/logs.html.twig", "C:\\xampp\\htdocs\\pruebaSymfony\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\logs.html.twig");
+", "@Twig/Exception/logs.html.twig", "C:\\xampp\\htdocs\\nemesist\\vendor\\symfony\\twig-bundle\\Resources\\views\\Exception\\logs.html.twig");
     }
 }

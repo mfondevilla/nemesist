@@ -1,0 +1,313 @@
+/***************** Header *****************/
+header {
+    background-image: url(../images/header.jpg);
+    height: 11em;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+.registro {
+    margin-left: 20px;
+    height: 3em;
+    width: 7em;
+    display: inline-block;
+}
+
+#usuario {
+    padding-top: 2em;
+}
+
+#usuario a {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    margin-top: 10px;
+}
+
+#logo_mneme {
+    color: #3086aa;
+    font-weight:bold;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 4em;
+    margin-top: 12px;
+}
+
+#logo_sist {
+    font-family:Consolas; 
+    font-style: normal;
+    color: #dbc838
+}
+
+#barra_busqueda {
+    padding-top: 3.8em;
+}
+
+.busqueda {
+    position: absolute;
+    background-color: gray;
+    border: 1px solid black;
+    width: 195px;
+    padding-left: 12px;
+    z-index: 1;
+}
+
+#form_search {
+    width: auto;
+    padding-top: 2px;
+    flex-grow: 1;
+}
+
+#search {
+    font-family: Helvetica;
+    font-size: .9em;
+    width: 350px;
+    padding-top: 13px;
+    color: #11497a;
+    padding-right: 32px;
+    padding-bottom: 9px;
+    border: none;
+    border-bottom: 1px solid #03657c;
+    border-radius: 0;
+    margin-left: 30px;
+    background-color: transparent;
+}
+
+::placeholder { color: #fff; }
+
+.boton_search {
+    color: #fff;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    padding: 0;
+    margin-right: 90px;
+    border: none;
+    background-color: transparent;
+}
+
+#logo h3 {
+    margin-top: 20px;
+    font-size: 13px;
+    color:white;
+}
+#logo h3 span {
+    font-style: oblique;
+}
+/****************** Nav ******************/
+
+.nav_perso {
+    background: #03657c;
+    border-color: transparent;
+}
+
+/****************** Body ******************/
+
+body {
+    background: white;
+}
+
+ .example-wrapper { 
+     margin: 1em auto; 
+     max-width: 800px; 
+     width: 95%; 
+     font: 18px/1.5 sans-serif; 
+ }
+ 
+ .example-wrapper code { 
+     background: #F5F5F5; 
+     padding: 2px 6px; 
+ }
+ 
+ .clearfix {
+     float:none;
+     clear:both;
+ }
+ 
+ #header {
+     margin: 1em auto; 
+     max-width: 800px; 
+     width: 95%;
+     font: 18px/1.5 sans-serif; 
+ }
+ 
+ #menu {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width:100%;
+    height: 50px;
+    background: #eee;
+    line-height: 50px;
+ }
+ 
+ #menu li {
+     display: block;
+     float: left;
+     padding-left: 15px;
+     padding-right: 15px;
+     border-right: 1px solid #ccc;
+     cursor: pointer;
+    transition: all 300ms;
+ }
+
+#menu li:hover {
+    background: #444;
+}
+
+#menu li:hover a{
+    color: white;
+}
+ 
+ #menu a {
+    display: block;
+    text-decoration: none;
+    /*color: #444;*/
+    transition: all 300ms;
+ }
+ 
+ label {
+     display:block;
+     width: 80%;
+     margin-top: 15px;
+     margin-bottom: 5px;
+}
+ 
+#menu li.rigth {
+    float: right;
+    border-right: 0px;
+    border-left: 1px solid #ccc;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textArea,
+select{
+    width: 70%;
+    padding: 8px;
+}
+
+button,
+input [type="submit"]{
+    padding:8px;
+    margin-top: 15px;
+    background: #00AA33;
+    color: white;
+    border: 1px solid #047425;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+button:hover,
+input[type="submit"]:hover{
+    background: #047425;
+}
+
+table {
+    width: 100%;
+}
+
+table th,
+table td{
+    background: #f6f6f6;
+    padding: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+
+table td {
+    background: #e9ffea;
+}
+
+.buttons a{
+    text-decoration: none;
+    border: 1px solid #444;
+    padding: 10px;
+    color: white;
+    background: #00AA33;
+}
+
+.buttons{
+    width: 35%;
+}
+
+.buttons .btn-edit {
+    background: orange;
+}
+
+.buttons .btn-delete {
+    background: red;
+}
+
+
+
+/***************** FOOTER *****************/
+
+/*
+@media (max-width: 767px) {
+    .lista-sm li {
+        width: 25%;
+        text-align: center;
+        line-height: 1.5em;
+        float: left;
+        display: inline;
+    }
+}*/
+
+.pie {
+    font-family: sans-serif, serif, cursive;
+    height: 15em;
+    background: #3086aa;
+    color: #e5e5e5;
+    padding-top: 3em;
+    width: 100%;
+}
+
+.pie aside {
+    margin-left: 140px;
+}
+
+.redes {
+    height: 60px;
+    width: 60px;
+    float: left;
+    background-size: contain;
+    margin-right: 6px;
+}
+
+#change {
+    width: 140px;
+    height: 60px;
+    position: absolute;
+    right: 230px;
+    margin-top: 24px;
+}
+
+.pie-titulo {
+    font-size: 1.5em;
+    font-family: descuento;
+}
+
+#sublista li {
+    line-height: 1.5em;
+    float: left;
+    display: inline;
+    width: 50%;
+}
+
+.condiciones {
+    margin-top: 60px;
+    text-align: center;
+}
+
+
+
+
+

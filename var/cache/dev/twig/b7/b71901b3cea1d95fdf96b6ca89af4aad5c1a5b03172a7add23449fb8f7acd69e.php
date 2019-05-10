@@ -55,6 +55,6 @@ class __TwigTemplate_a2e74b02c1ade501242cec5af52d696607e3bb83712442d2c0026b462ef
     <path fill=\"#aaa\" d=\"M23.61,11.07L17.07,4.35A1.2,1.2,0,0,0,15,5.28V9H1.4A1.82,1.82,0,0,0,0,10.82v2.61A1.55,
         1.55,0,0,0,1.4,15H15v3.72a1.2,1.2,0,0,0,2.07.93l6.63-6.72A1.32,1.32,0,0,0,23.61,11.07Z\"/>
 </svg>
-", "@WebProfiler/Icon/forward.svg", "C:\\xampp\\htdocs\\pruebaSymfony\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\forward.svg");
+", "@WebProfiler/Icon/forward.svg", "C:\\xampp\\htdocs\\nemesist\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Icon\\forward.svg");
     }
 }

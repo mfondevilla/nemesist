@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\CatalogueRepository;
+use App\Form\CatalogueMagazineType;
 use App\Form\CatalogueBookType;
 use App\Entity\Catalogue;
 use App\Entity\Authority;
@@ -23,7 +25,7 @@ class CatalogueController extends AbstractController
         ]);
     }
     
-     public function register_book(Request $request)//, UserInterface $user
+    public function register_book(Request $request)//, UserInterface $user
     {
         //Crear formulario
         $catalogue = new Catalogue();
@@ -40,12 +42,48 @@ class CatalogueController extends AbstractController
             $em->persist($catalogue);
             $em->flush();
             
-            return $this->redirect($this->generateUrl('register_book_autor', [
-                'id' => $catalogue->getId()
-            ]));
+            $_SESSION['catalogue'] = $catalogue;
+            
+            return $this->render('authority/buscar_autor.html.twig', [
+            'autores' => null,
+            'message' => "",
+            'catalogo' => $catalogue
+        ]);
         }
         
         return $this->render('catalogue/register_book.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+    
+    
+        public function register_magazine(Request $request)
+    {
+        //Crear formulario
+        $catalogue = new Catalogue();
+        $form = $this->createForm(CatalogueMagazineType::class, $catalogue);
+        
+        //Rellenar el objeto con los datos del formulario
+        $form->handleRequest($request);
+        
+        //Comprobar si se ha enviado
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            //Guardamos el usuario
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($catalogue);
+            $em->flush();
+            
+            $_SESSION['catalogue'] = $catalogue;
+            
+            return $this->render('authority/buscar_autor.html.twig', [
+            'autores' => null,
+            'message' => "",
+            'catalogo' => $catalogue
+        ]);
+        }
+        
+        return $this->render('catalogue/register_magazine.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -121,8 +159,7 @@ class CatalogueController extends AbstractController
                 'message' => $message,
             ]);
     }
-    
-    public function search(Request $request){
+     public function search(Request $request){
        
         $catalogue = new Catalogue();
                     
@@ -147,35 +184,52 @@ class CatalogueController extends AbstractController
     }
     }
 
+     public function delete_catalogue(Catalogue $catalogue)
+    {
+        if(!$catalogue) {
+            return $this->redirectToRoute('buscar_catalogue');
+        }
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($catalogue);
+        $em->flush();
+        
+        return $this->redirectToRoute('buscar_catalogue');
+    }
+    
+        public function edit_catalogue(Request $request, UserInterface $user, Catalogue $catalogue) {
+        
+//        if (!$user || $user->getId() != $task->getUser()->getId()) {
+//            return $this->redirectToRoute('tasks');
+//        }
+        
+        $form = $this->createForm(CatalogueBookType::class, $catalogue);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$task->setCreateAt(new \DateTime('now'));
+            //$task->setUser($user);
+            $catalogue->setEditingIdUser($user->getId());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($catalogue);
+            $em->flush();
+            
+//            return $this->redirect($this->generateUrl('task_detail', [
+//                'id' => $catalogue->getId()
+//            ]));
+            
+            return $this->redirectToRoute('buscar_catalogue');
+        }
+        
+        return $this->render('catalogue/register_book.html.twig', [
+            'edit' => true,
+            'form' => $form->createView()
+        ]);
+    }
+   
 
     
-     public function all_catalogue(){
-        $catalogue_repo = $this->getDoctrine()->getRepository(Catalogue::class);
-        
-        $catalogues = $catalogue_repo->findAll();
-        $all_items = [];
-        foreach($catalogues as $catalogue) {
-              $all_items[] = $catalogue->getItems();
-         }
-     
-        return $this->render('catalogue/entire_catalogue.html.twig', [
-            'controller_name' => 'CatalogueController', 'catalogues'=>$catalogues, 'all_items'=>$all_items
-        ]);
-    }
-    
-     public function first_catalogue(){
-        $catalogue_repo = $this->getDoctrine()->getRepository(Catalogue::class);
-  
-        $catalogue = $catalogue_repo->findBy(['id'=>'1']);
-         foreach($catalogue as $cata) {
-              $items = $cata->getItems();
-         }
-      
-        return $this->render('catalogue/first_catalogue.html.twig', [
-            'controller_name' => 'CatalogueController',
-            'items'=>$items
-        ]);
-    }
+
     
         
 

@@ -24,6 +24,18 @@ class AuthorityRepository extends ServiceEntityRepository{
             
     }
     
+    public function findByNameForBook($name)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->andWhere("a.name LIKE :name")
+                   ->andWhere("a.typeauth != 'Editoriales'")
+                   ->setParameter('name', '%'.$name.'%')
+                   //->orderBy('a.id', $order)
+                   ->getQuery();
+        
+        $autores = $qb->execute();
+        return $autores;
+    }
   
     
 }

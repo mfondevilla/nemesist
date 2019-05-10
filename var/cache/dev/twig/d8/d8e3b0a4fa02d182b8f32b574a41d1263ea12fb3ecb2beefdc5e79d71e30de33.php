@@ -112,6 +112,6 @@ class __TwigTemplate_661e6c2ac15238a2515233a5d3d76fb0f3859f6cf1b61681acdbf1fd8cf
 <h1>{{ hello }}</h1> 
 </div>
 
-{% endblock body %}", "home/index.html.twig", "C:\\xampp\\htdocs\\pruebaSymfony\\templates\\home\\index.html.twig");
+{% endblock body %}", "home/index.html.twig", "C:\\xampp\\htdocs\\nemesist\\templates\\home\\index.html.twig");
     }
 }

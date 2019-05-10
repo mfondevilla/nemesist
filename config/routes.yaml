@@ -1,7 +1,42 @@
-index:
+inicio:
     path: /
-    controller: App\Controller\HomeController::index
- 
+    controller: App\Controller\UserController::index
+    
+login:
+    path: /login
+    controller: App\Controller\UserController::login
+    
+logout:
+    path: /logout
+
+profile:
+    path: /perfil
+    controller: App\Controller\UserController::profile
+    
+edit_profile:
+    path: /editar_perfil
+    controller: App\Controller\UserController::edit_profile
+    
+delete_profile:
+    path: /delete_perfil
+    controller: App\Controller\UserController::delete_profile
+
+register_user:
+    path: /registro_usuario
+    controller: App\Controller\UserController::register_user
+
+register_book:
+    path: /register_book
+    controller: App\Controller\CatalogueController::register_book
+    
+register_magazine:
+    path: /register_magazine
+    controller: App\Controller\CatalogueController::register_magazine
+    
+buscar_ini:
+    path: /buscar_ini
+    controller: App\Controller\AuthorityController::buscar_ini
+
 manage_authority:
     path: /autores
     controller: App\Controller\AuthorityController::index
@@ -25,73 +60,39 @@ delete_author:
 search_author:
     path: /buscar_autor
     controller: App\Controller\AuthorityController::search_author
+
+buscar_autor:
+    path: /buscar_autor/{id}
+    controller: App\Controller\AuthorityController::buscar
+
+select_buscar_autor:
+    path: /select_buscar_autor/{id}
+    controller: App\Controller\AuthorityController::select_buscar_autor
     
 catalogue:
     path: /catalogo
     controller: App\Controller\CatalogueController::all_catalogue
     
-first_catalogue:
-    path: /primero
-    controller: App\Controller\CatalogueController::first_catalogue
-
 search_catalogue:
     path: /buscar_nav
     controller: App\Controller\SearchController::simpleSearch
-    
-advanced_search:
-    path: /busqueda_avanzada
-    controller: App\Controller\SearchController::advancedSearch
-    
-custom_search:
-    path: /busqueda_personalizada
-    controller: App\Controller\SearchController::customSearch
 
-login:
-    path: /login
-    controller: App\Controller\UserController::login
-
-profile:
-    path: /perfil
-    controller: App\Controller\UserController::profile
-edit_profile:
-    path: /editar_perfil
-    controller: App\Controller\UserController::edit_profile
-delete_profile:
-    path: /delete_perfil
-    controller: App\Controller\UserController::delete_profile
-
-
-register_user:
-    path: /registro_usuario
-    controller: App\Controller\UserController::register_user
-        
-logout:
-    path: /logout
-
-register_book:
-    path: /register_book
-    controller: App\Controller\CatalogueController::register_book
-
-register_book_autor:
-    path: /register_book_autor/{id}
-    controller: App\Controller\CatalogueController::register_book_autor
-
-buscar_ini:
-    path: /buscar_ini
-    controller: App\Controller\AuthorityController::buscar_ini
-    
-buscar_autor:
-    path: /buscar_autor/{id}
-    controller: App\Controller\AuthorityController::buscar
-    
-select_buscar_autor:
-    path: /select_buscar_autor/{id}
-    controller: App\Controller\AuthorityController::select_buscar_autor
-    
 buscar_catalogue:
     path: /buscar_catalogue
     controller: App\Controller\CatalogueController::buscar
 
+custom_search:
+    path: /busqueda_personalizada
+    controller: App\Controller\SearchController::customSearch
+
+delete_catalogue:
+    path: /delete_catalogue/{id}
+    controller: App\Controller\CatalogueController::delete_catalogue
+    
+edit_catalogue:
+    path: /edit_catalogue/{id}
+    controller: App\Controller\CatalogueController::edit_catalogue
+      
 item_maintenance:
     path: /buscar_item
     controller: App\Controller\ItemController::buscar

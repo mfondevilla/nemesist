@@ -15,6 +15,10 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class UserController extends AbstractController
 {
+    public function index()
+    {
+        return $this->render('includes/main.html.twig');
+    }
    
      public function profile(UserInterface $user)
     {
