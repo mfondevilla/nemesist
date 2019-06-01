@@ -4,37 +4,92 @@
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h2>Busqueda de Libros</h2>
-    <form action="{{ path('buscar_catalogue') }}" method="POST">
+    <main class="principal principal-xs container">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/mantenimiento">Busqueda</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row alto">
+        {{ include('includes/subnav.html.twig') }}
         
-        <label for="search">Buscar: </label>
-        <input type="text" id="search" name="search" value ="" />
+       <div class="col-10">
+        <h2>Busqueda de Libros</h2>
+        <h3>{{ message }}</h3>
+        <form action="{{ path('search_catalogue') }}" method="POST">
+
+            <label for="search">Buscar: </label>
+            <input type="text" id="search" name="search" value ="" />
+            <input type="submit" value="Buscar" name = "buscar_catalogue"/>
+        </form>
+        {% if catalogues|length > 0 %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Subtitulo</th>
+                    <th scope="col">Idioma</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Num items</th> 
+                    <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for catalogue in catalogues %}
+
+                    <tr>
+                        <td>{{ catalogue.title }}</td>
+                        <td>{{ catalogue.subtitle }}</td>
+                        <td>{{ catalogue.language }}</td>
+                     <td>
+
+                        {% set cover = "" %}
+                        {% for item in catalogue.items %}
+                            {% if item.cover != "" %}
+                                {% set cover = item.cover %}
+                            {% endif %}
+
+                        {% endfor %}
+                              <div id="image">
+                                {% if cover == ""%}
+                                   <img class="image_ico"  src={{ asset('images/item_images/no_disponible.png') }}>   
+                                {% else %}
+                                   <img class="image_ico"  src={{ asset('images/item_images/' ~ cover) }}>
+                                {% endif %}
+                            </div>
+
+
+                        </td>
+                        {% set number_items = catalogue.items|length %}
+                         <td>{{ number_items }}</td>
+
+                        <td class="buttons">
+                            <a href="{{ path('book_details', {'id':catalogue.id}) }}" class="btn-show">Ver libro</a>
+                            {% if number_items > 0 %}
+                                <a href="{{ path('search_items', {'id':catalogue.id}) }}" class="btn-show">Ver Items</a>
+                            {% endif %}
+                            {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                <a href="{{ path('register_item', {'id':catalogue.id}) }}" class="btn-show">Nuevo item</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="col-8 offset-md-2">
+                <div class="paginacion navigation">
+                    {{ knp_pagination_render(paginacion) }}
+                </div>
+            </div>
+        </div>
         
-        <input type="submit" value="Buscar" name = "buscar_catalogue"/>
-    </form>
-    {% if catalogues|length > 0 %}
-        <table>
-            <tr>
-                <th>Titulo</th>
-                <th>Subtitulo</th>
-                <th>Idioma</th>
-            </tr>
-            {% for catalogue in catalogues %}
-                <tr>
-                    <td>{{ catalogue.title }}</td>
-                    <td>{{ catalogue.subtitle }}</td>
-                    <td>{{ catalogue.language }}</td>
-                    <td class="buttons">
-                        <a href="{{ path('buscar_autor', {'id':catalogue.id}) }}" class="btn-show">Añadir Autor</a>
-                        <a href="{{ path('edit_catalogue', {'id':catalogue.id}) }}" class="btn-show">Editar</a>
-                        <a href="{{ path('delete_catalogue', {'id':catalogue.id}) }}" class="btn-show">Eliminar</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>{{ message }}</p>
-    {% endif %}
-</div>
+        {% else %}
+            <p>{{ message }}</p>
+        {% endif %}
+        </div>
+        
+    </main>
 {% endblock %}

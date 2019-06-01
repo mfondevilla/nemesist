@@ -4,19 +4,50 @@
 
 {% block body %}
 {% block content %}
-<div class="example-wrapper">
+ <main class="principal principal-xs container">
+        <div class="row alto">
+          
+        {{ include('includes/subnav.html.twig') }}
+        
+       <div class="col-sm-6">
+    
   <h2>
         {% if edit is defined %}
             Editar item 
         {% else %}
-            Crear itema {{ catalogue.title }}
+           {% if catalogue is defined %}
+            Crear item {{ catalogue.title }}
+            {% else %}
+             Crear item {{ issue.title }}  
+        {% endif %}
         {% endif %}
         
     </h2>
-        
+        <div id="form">
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
+        </div>
+        <br/>
+          
+    {% if item is defined %}
+        
+         <div id="image">
+                        {% if item.cover == ""%}
+                           <img class="image_ico" src={{ asset('images/item_images/no_disponible.png') }}>   
+                        {% else %}
+                           <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
+                        {% endif %}
+                    </div>
+                    
+       {% else %}
+        
+    {% endif %}              
+
+   
+       
 </div>
+        </div>
+ </main>
 {% endblock %}
 {% endblock %}

@@ -9,9 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Item
  *
- * @ORM\Table(name="item", indexes={@ORM\Index(name="id_issue", columns={"issue_id"}), @ORM\Index(name="id_catalogue", columns={"catalogue_id"})})
+ * @ORM\Table(name="item", indexes={@ORM\Index(name="id_catalogue", columns={"catalogue_id"}), @ORM\Index(name="id_issue", columns={"issue_id"})})
  * @ORM\Entity
  */
+
 class Item
 {
     /**
@@ -346,6 +347,37 @@ class Item
     public function setIssue(?Issue $issue): self
     {
         $this->issue = $issue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Historic[]
+     */
+    public function getHistorics(): Collection
+    {
+        return $this->historics;
+    }
+
+    public function addHistoric(Historic $historic): self
+    {
+        if (!$this->historics->contains($historic)) {
+            $this->historics[] = $historic;
+            $historic->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHistoric(Historic $historic): self
+    {
+        if ($this->historics->contains($historic)) {
+            $this->historics->removeElement($historic);
+            // set the owning side to null (unless already changed)
+            if ($historic->getItem() === $this) {
+                $historic->setItem(null);
+            }
+        }
 
         return $this;
     }

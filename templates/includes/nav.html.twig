@@ -1,41 +1,61 @@
-{% block nav %}
-<nav role="navigation" class="container navbar navbar-default navbar-inverse">
-    <div class="navbar-header">
-        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a href="#" class="visible-xs-inline hide navbar-brand"></a>
-        <div class="hide visible-xs-inline col-xs-1 navbar-brand icon-s glyphicon glyphicon-user"></div>
-        <div class="hide visible-xs-inline col-xs-1 navbar-brand icon-s glyphicon glyphicon-search"></div>
-    </div>
-    <section id="navbarCollapse" class="collapse navbar-collapse">
-        <ul class="font nav navbar-nav col-sm-12">
-           
-                <li class="col-sm-2 active"><a class="centrado" >Inicio</a></li>
-                <li class="col-sm-2 active"><a class="centrado" href="#">Catálogo</a></li>
-                <li class="col-sm-2 active"><a class="centrado" href="#">Localización</a></li>
-                <li class="col-sm-2 active"><a href="{{ path('register_book') }}">Registrar Libro</a></li>
-                <li class="col-sm-2 active"><a href="{{ path('buscar_catalogue') }}">Buscar Libro</a></li>
-                <li class="col-sm-2 active"><a class="centrado" href="#">Cesta</a></li>
-                <li class="col-sm-2 active"><a href="{{ path('item_maintenance') }}">Mantenimiento Items</a></li>
-                <li class="col-sm-2 active"><a href="{{ path('issue_maintenance') }}">Mantenimiento Revistas
-                    </a></li>
-                
-                {% if app.user %}
-                    <li class="col-sm-2 active"><a class="centrado" href="{{ path('logout') }}">Cerrar Sesión</a></li>
-                    <li class="col-sm-2 active"><a class="centrado" href="{{ path('profile') }}">Editar perfil</a></li>
-                {% else %}
-                    <li class="col-sm-2 active"><a class="centrado" href="{{ path('login') }}">Login</a></li>
-                {% endif %}
-        </ul>
-    </section>
+<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand col-sm-4 d-lg-none" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto container">
+        {% if opcion == 1 %}
+            <li class="nav-item active col-md-3">
+                <a class="nav-link text-center" href="/">Inicio<span class="sr-only">(current)</span></a>
+            </li>
+        {% else %}
+            <li class="nav-item col-md-3">
+                <a class="nav-link text-center" href="/">Inicio<span class="sr-only">(current)</span></a>
+            </li>
+        {% endif %}
+        {% if opcion == 2 %}
+            <li class="nav-item active col-md-3">
+              <a class="nav-link text-center" href="/map">Localización</a>
+            </li>
+        {% else %}
+            <li class="nav-item col-md-3">
+                <a class="nav-link text-center" href="/map">Localización</a>
+            </li>
+        {% endif %}
+        {% if app.user %}
+            {% if opcion == 3 %}
+                <li class="nav-item active col-md-3">
+                  <a class="nav-link text-center" href="/mantenimiento">Operaciones</a>
+                </li>
+            {% else %}
+                <li class="nav-item col-md-3">
+                    <a class="nav-link text-center" href="/mantenimiento">Operaciones</a>
+                </li>
+            {% endif %}
+        {% else %}
+            {% if opcion == 3 %}
+                <li class="nav-item active col-md-3">
+                  <a class="nav-link text-center" href="/mantenimiento">Consultas</a>
+                </li>
+            {% else %}
+                <li class="nav-item col-md-3">
+                    <a class="nav-link text-center" href="/mantenimiento">Consultas</a>
+                </li>
+            {% endif %}
+        {% endif %}
+        {% if opcion == 4 %}
+            <li class="nav-item active col-md-3">
+              <a class="nav-link text-center" href="#">Contacto</a>
+            </li>
+        {% else %}
+            <li class="nav-item col-md-3">
+                <a class="nav-link text-center" href="#">Contacto</a>
+            </li>
+        {% endif %}
+    </ul>
+  </div>
 </nav>
-{% endblock %}
+    </div>

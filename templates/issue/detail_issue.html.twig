@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <main class="principal principal-xs container">
+        <div class="row alto">
+        {{ include('includes/subnav.html.twig') }}
+        
+       <div class="col-6">
+          
+           <h3>Revista:{{ catalogue.title }}</h3>
+        <label>id</label>
+        <input type="text" value ="{{ issue.id }}" readonly />
+        <label>Título</label>
+        <input type="text" value ="{{ issue.title }}" readonly/>
+        <label>Fecha</label>
+         <input type="text" value ="{{ issue.year ~ '-' ~ issue.month }}" readonly/>
+    {% set cover = "" %}
+    {% for item in issue.items %}
+        {% if item.cover != "" %}
+            {% set cover = item.cover %}
+        {% endif %}
+           
+    {% endfor %}
+    
+      <div id="image">
+         {% if cover == ""%}
+            <img src={{ asset('images/item_images/no_disponible.png') }}>   
+         {% else %}
+            <img src={{ asset('images/item_images/' ~ cover) }}>
+         {% endif %}
+     </div>
+    {% if app.user and app.user.role == "ROLE_ADMIN" %}
+        <table>
+            <tr>
+                <td class="buttons">
+                    <a href="{{ path('edit_issue', {'id':issue.id}) }}" class="btn-show">Editar</a>
+                    <a href="{{ path('delete_issue', {'id':issue.id}) }}" class="btn-show">Eliminar</a>
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+             </div>
+       </div>
+    </main>
+   {% endblock %}
+

@@ -13,46 +13,56 @@ class CatalogueMagazineType extends AbstractType {
                       'label' => 'Titulo'
                      ))
                 ->add('subtitle', TextType::class, array(
-                      'label' => 'SubTitulo'
+                      'label' => 'SubTitulo',
+                      'required' => false
                      ))
                 ->add('translate_title', TextType::class, array(
-                      'label' => 'Titulo Traducido'
+                      'label' => 'Titulo Traducido',
+                      'required' => false
                      ))
                 ->add('edition', TextType::class, array(
-                      'label' => 'Edición'
-                     ))
-                ->add('publisher', TextType::class, array(
-                      'label' => 'Editor'
+                      'label' => 'Edición',
+                      'required' => false
                      ))
                 ->add('year_publication', TextType::class, array(
-                      'label' => 'Año de Publicación'
+                      'label' => 'Año de Publicación',
+                      'required' => false
                      ))
                 ->add('place_publication', TextType::class, array(
-                      'label' => 'Lugar de Publicación'
+                      'label' => 'Lugar de Publicación',
+                      'required' => false
                      ))
                 ->add('document_type', TextType::class, array(
-                      'label' => 'Tipo de Documento'
+                      'label' => 'Tipo de Documento',
+                      'required' => false
                      ))
                 ->add('subdoc_type', TextType::class, array(
-                      'label' => 'Tipo de Subdocumento'
+                      'label' => 'Tipo de Subdocumento',
+                      'required' => false
                      ))
                 ->add('physical_description', TextType::class, array(
-                      'label' => 'Descripción Física'
+                      'label' => 'Descripción Física',
+                      'required' => false
                      ))
                 ->add('periodicity', TextType::class, array(
-                      'label' => 'Periodicidad'
+                      'label' => 'Periodicidad',
+                      'required' => false
                      ))
                 ->add('vol', TextType::class, array(
-                      'label' => 'Volumen'
+                      'label' => 'Volumen',
+                      'required' => false
                      ))
                 ->add('serie', TextType::class, array(
-                      'label' => 'Serie'
+                      'label' => 'Serie',
+                      'required' => false
                      ))
                 ->add('nserie', TextType::class, array(
-                      'label' => 'Número de Serie'
+                      'label' => 'Número de Serie',
+                      'required' => false
                      ))
                 ->add('language', ChoiceType::class, array(
                       'label' => 'Idioma',
+                      'required' => false,
                       'choices' => array (
                           'Español' => 'spanish',
                           'Ingles' => 'english',
@@ -62,19 +72,24 @@ class CatalogueMagazineType extends AbstractType {
                           'Alemán' => 'german'
                      )))
                 ->add('notes', TextType::class, array(
-                      'label' => 'Notas'
+                      'label' => 'Notas',
+                      'required' => false
                      ))
                 ->add('summary', TextType::class, array(
-                      'label' => 'Resumen'
+                      'label' => 'Resumen',
+                      'required' => false
                      ))
                 ->add('numb_copies', TextType::class, array(
-                      'label' => 'Número de Copias'
+                      'label' => 'Número de Copias',
+                      'required' => false
                      ))
                 ->add('ISSN', TextType::class, array(
-                      'label' => 'ISSN'
+                      'label' => 'ISSN',
+                      'required' => false
                      ))
                 ->add('cover', TextType::class, array(
-                      'label' => 'Portada'
+                      'label' => 'Portada',
+                      'required' => false
                      ))
                 ->add('submit', SubmitType::class, array(
                       'label' => 'Registrarse'

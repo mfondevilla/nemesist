@@ -102,7 +102,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -114,7 +114,7 @@ class User implements UserInterface
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -150,7 +150,7 @@ class User implements UserInterface
         return $this->role;
     }
 
-    public function setRole(string $role): self
+    public function setRole(?string $role): self
     {
         $this->role = $role;
 
@@ -162,14 +162,14 @@ class User implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreationDate(): \DateTimeInterface
     {
         return $this->creationDate;
     }
@@ -181,7 +181,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getEditingDate(): ?\DateTimeInterface
+    public function getEditingDate(): \DateTimeInterface
     {
         return $this->editingDate;
     }
@@ -198,7 +198,7 @@ class User implements UserInterface
         return $this->gender;
     }
 
-    public function setGender(string $gender): self
+    public function setGender(?string $gender): self
     {
         $this->gender = $gender;
 
@@ -210,7 +210,7 @@ class User implements UserInterface
         return $this->age;
     }
 
-    public function setAge(int $age): self
+    public function setAge(?int $age): self
     {
         $this->age = $age;
 

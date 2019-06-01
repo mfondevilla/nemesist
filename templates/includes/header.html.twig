@@ -1,79 +1,75 @@
 <header class="container">
-    <section id="logo" class="text-center col-xs-12 col-sm-5 col-md-4 col-lg-4 col-lg-offset-0 col-md-offset-1 col-sm-offset-1">
-        <h1 id="logo_mneme">
-            mneme<span id="logo_sist">sist</span>
-        </h1>
-        <h3>"Aprender a leer es lo más importante que me ha pasado en la vida”.
-            <span>Mario Vargas Llosa.</span></h3>
-    </section>
-    <section id="barra_busqueda" class="hidden-xs col-sm-6 col-md-5">
-        <form action="{{ path('buscar_ini') }}" id ="form_search" method="POST">
-            <input type="text" id="search" name="search" autocomplete="off" placeholder="Buscar inspiración, conocimiento..." />
-            <span class="boton_search">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-            width="30" height="30"
-            viewBox="0 0 192 192"
-            style=" fill:#000000;">
-                <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
-                    <path d="M0,192v-192h192v192z" fill="none"></path>
-                    <g id="Слой_1" fill="#246c8c">
-                        <path d="M75,42.003c-15,0 -27.006,11.997 -27.006,26.997h27.006z"></path>
-                        <path d="M74.997,30c-21.507,0 -39.006,17.496 -39.006,39.006c0,21.51 17.499,39.006 39.006,39.006c21.507,0 39.006,-17.496 39.006,-39.006c0,-21.51 -17.499,-39.006 -39.006,-39.006zM74.997,102.009c-18.198,0 -33.003,-14.805 -33.003,-33.003c0,-18.198 14.805,-33.003 33.003,-33.003c18.198,0 33.003,14.805 33.003,33.003c0,18.198 -14.805,33.003 -33.003,33.003z"></path>
-                        <path d="M164.31,145.677l-26.256,-29.592c-2.157,-2.436 -5.985,-2.76 -8.535,-0.729l-7.458,5.919l-12.375,-14.982c10.011,-9.318 16.317,-22.563 16.317,-37.287c0,-28.125 -22.881,-51.006 -51.006,-51.006c-28.125,0 -51.006,22.881 -51.006,51.006c0,28.125 22.881,51.006 51.006,51.006c11.247,0 21.621,-3.702 30.063,-9.894l12.297,14.889l-7.098,5.631c-1.302,1.032 -2.094,2.496 -2.238,4.122c-0.141,1.617 0.381,3.18 1.47,4.407l26.259,29.595c3.066,3.456 7.467,5.238 11.895,5.238c3.507,0 7.032,-1.119 9.921,-3.411l4.821,-3.822c3.24,-2.574 5.217,-6.204 5.568,-10.218c0.345,-3.972 -0.948,-7.833 -3.645,-10.872zM29.991,69.006c0,-24.816 20.19,-45.006 45.006,-45.006c24.816,0 45.006,20.19 45.006,45.006c0,24.816 -20.187,45.006 -45.006,45.006c-24.819,0 -45.006,-20.19 -45.006,-45.006zM145.926,133.998l-19.401,15.399l-4.431,-4.968l19.416,-15.408zM133.254,120.054c0.039,-0.03 0.09,-0.042 0.147,-0.042c0.066,0 0.135,0.021 0.165,0.054l3.957,4.461l-19.428,15.417l-4.104,-4.602zM158.655,162.066l-4.821,3.822c-4.083,3.243 -10.182,2.745 -13.596,-1.107l-9.717,-10.896l19.392,-15.39l9.909,11.166c1.59,1.794 2.355,4.053 2.154,6.366c-0.204,2.358 -1.386,4.503 -3.321,6.039z"></path>
-                    </g>
-                </g>
-            </svg>
-            </span>
-        </form>
-    </section>
-    <section id="usuario" class="col-md-3 hidden-md hidden-sm hidden-xs">
-        <a href="/perfil">
-            <span >
+    <div class="row">
+        <section id="logo" class="text-center col-xs-12 col-sm-5 col-md-4 col-lg-4 col-lg-offset-0 col-md-offset-1 col-sm-offset-1">
+            <h1 id="logo_mneme">
+                mneme<span id="logo_sist">sist</span>
+            </h1>
+            <h3>"Aprender a leer es lo más importante que me ha pasado en la vida”.
+                <span>Mario Vargas Llosa.</span></h3>
+        </section>
+        <section id="barra_busqueda" class="hidden-xs col-sm-6 col-md-5">
+            <form action="{{ path('search_generic') }}" id ="form_search" method="POST">
+                <input type="text" id="search" name="search" autocomplete="off" placeholder="Buscar inspiración, conocimiento..." />
+                <span class="boton_search">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                width="50" height="50"
+                width="30" height="30"
                 viewBox="0 0 192 192"
                 style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,192v-192h192v192z" fill="none"></path>
-                        <g fill="#246c8c">
-                            <g id="surface1">
-                                <path d="M96,11.52c-21.255,0 -38.4,17.145 -38.4,38.4v23.04c0,12.435 6.09,23.595 15.36,30.6v17.4c0,0.405 -0.075,0.75 -1.08,1.68c-1.005,0.93 -2.79,2.175 -5.16,3.36c-4.725,2.37 -11.55,4.8 -18.48,8.16c-6.93,3.36 -14.115,7.635 -19.68,13.8c-5.565,6.165 -9.36,14.43 -9.36,24.84v3.84h153.6v-3.84c0,-10.5 -3.795,-18.795 -9.36,-24.96c-5.565,-6.165 -12.75,-10.365 -19.68,-13.68c-6.93,-3.315 -13.77,-5.82 -18.48,-8.16c-2.355,-1.17 -4.17,-2.31 -5.16,-3.24c-0.99,-0.93 -1.08,-1.32 -1.08,-1.8v-17.4c9.27,-7.005 15.36,-18.165 15.36,-30.6v-23.04c0,-21.255 -17.145,-38.4 -38.4,-38.4zM96,19.2c17.145,0 30.72,13.575 30.72,30.72v23.04c0,10.59 -5.535,20.13 -13.68,25.56l-1.68,1.2v21.24c0,2.97 1.53,5.595 3.48,7.44c1.95,1.845 4.395,3.225 7.08,4.56c5.37,2.67 11.97,5.04 18.48,8.16c6.51,3.12 12.765,6.885 17.28,11.88c3.75,4.14 5.925,9.45 6.72,15.96h-136.8c0.795,-6.435 2.985,-11.685 6.72,-15.84c4.515,-5.01 10.77,-8.835 17.28,-12c6.51,-3.165 13.125,-5.61 18.48,-8.28c2.67,-1.335 5.145,-2.745 7.08,-4.56c1.935,-1.815 3.48,-4.365 3.48,-7.32v-21.24l-1.68,-1.2c-8.145,-5.43 -13.68,-14.97 -13.68,-25.56v-23.04c0,-17.145 13.575,-30.72 30.72,-30.72z"></path>
-                            </g>
+                        <g id="Слой_1" fill="#246c8c">
+                            <path d="M75,42.003c-15,0 -27.006,11.997 -27.006,26.997h27.006z"></path>
+                            <path d="M74.997,30c-21.507,0 -39.006,17.496 -39.006,39.006c0,21.51 17.499,39.006 39.006,39.006c21.507,0 39.006,-17.496 39.006,-39.006c0,-21.51 -17.499,-39.006 -39.006,-39.006zM74.997,102.009c-18.198,0 -33.003,-14.805 -33.003,-33.003c0,-18.198 14.805,-33.003 33.003,-33.003c18.198,0 33.003,14.805 33.003,33.003c0,18.198 -14.805,33.003 -33.003,33.003z"></path>
+                            <path d="M164.31,145.677l-26.256,-29.592c-2.157,-2.436 -5.985,-2.76 -8.535,-0.729l-7.458,5.919l-12.375,-14.982c10.011,-9.318 16.317,-22.563 16.317,-37.287c0,-28.125 -22.881,-51.006 -51.006,-51.006c-28.125,0 -51.006,22.881 -51.006,51.006c0,28.125 22.881,51.006 51.006,51.006c11.247,0 21.621,-3.702 30.063,-9.894l12.297,14.889l-7.098,5.631c-1.302,1.032 -2.094,2.496 -2.238,4.122c-0.141,1.617 0.381,3.18 1.47,4.407l26.259,29.595c3.066,3.456 7.467,5.238 11.895,5.238c3.507,0 7.032,-1.119 9.921,-3.411l4.821,-3.822c3.24,-2.574 5.217,-6.204 5.568,-10.218c0.345,-3.972 -0.948,-7.833 -3.645,-10.872zM29.991,69.006c0,-24.816 20.19,-45.006 45.006,-45.006c24.816,0 45.006,20.19 45.006,45.006c0,24.816 -20.187,45.006 -45.006,45.006c-24.819,0 -45.006,-20.19 -45.006,-45.006zM145.926,133.998l-19.401,15.399l-4.431,-4.968l19.416,-15.408zM133.254,120.054c0.039,-0.03 0.09,-0.042 0.147,-0.042c0.066,0 0.135,0.021 0.165,0.054l3.957,4.461l-19.428,15.417l-4.104,-4.602zM158.655,162.066l-4.821,3.822c-4.083,3.243 -10.182,2.745 -13.596,-1.107l-9.717,-10.896l19.392,-15.39l9.909,11.166c1.59,1.794 2.355,4.053 2.154,6.366c-0.204,2.358 -1.386,4.503 -3.321,6.039z"></path>
                         </g>
                     </g>
                 </svg>
-            </span>
-        </a>
-        <div class="registro">
-            <br>
-            
-            <!-- Authentication Links -->
-            
-            {% if app.user %}
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
-                <ul class="nav nav-pills">
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             <span class="caret"></span>
-                        </a>
+                </span>
+            </form>
+        </section>
+        <section class="col-md-3 hidden-md hidden-sm hidden-xs">
+            <div class="row">
+            <div id="usuario" class="col-md-4">
+                <a href="/profile">
+                    <span >
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        width="50" height="50"
+                        viewBox="0 0 192 192"
+                        style=" fill:#000000;">
+                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+                                <path d="M0,192v-192h192v192z" fill="none"></path>
+                                <g fill="#246c8c">
+                                    <g id="surface1">
+                                        <path d="M96,11.52c-21.255,0 -38.4,17.145 -38.4,38.4v23.04c0,12.435 6.09,23.595 15.36,30.6v17.4c0,0.405 -0.075,0.75 -1.08,1.68c-1.005,0.93 -2.79,2.175 -5.16,3.36c-4.725,2.37 -11.55,4.8 -18.48,8.16c-6.93,3.36 -14.115,7.635 -19.68,13.8c-5.565,6.165 -9.36,14.43 -9.36,24.84v3.84h153.6v-3.84c0,-10.5 -3.795,-18.795 -9.36,-24.96c-5.565,-6.165 -12.75,-10.365 -19.68,-13.68c-6.93,-3.315 -13.77,-5.82 -18.48,-8.16c-2.355,-1.17 -4.17,-2.31 -5.16,-3.24c-0.99,-0.93 -1.08,-1.32 -1.08,-1.8v-17.4c9.27,-7.005 15.36,-18.165 15.36,-30.6v-23.04c0,-21.255 -17.145,-38.4 -38.4,-38.4zM96,19.2c17.145,0 30.72,13.575 30.72,30.72v23.04c0,10.59 -5.535,20.13 -13.68,25.56l-1.68,1.2v21.24c0,2.97 1.53,5.595 3.48,7.44c1.95,1.845 4.395,3.225 7.08,4.56c5.37,2.67 11.97,5.04 18.48,8.16c6.51,3.12 12.765,6.885 17.28,11.88c3.75,4.14 5.925,9.45 6.72,15.96h-136.8c0.795,-6.435 2.985,-11.685 6.72,-15.84c4.515,-5.01 10.77,-8.835 17.28,-12c6.51,-3.165 13.125,-5.61 18.48,-8.28c2.67,-1.335 5.145,-2.745 7.08,-4.56c1.935,-1.815 3.48,-4.365 3.48,-7.32v-21.24l-1.68,-1.2c-8.145,-5.43 -13.68,-14.97 -13.68,-25.56v-23.04c0,-17.145 13.575,-30.72 30.72,-30.72z"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+                <div  class="col-md-8">
+                <br>
 
-                        <div class="dropdown-menu" >
-                            <a class="dropdown-item" href="{{ path('logout') }}">
-                                Logout
-                            </a>
-                            <br>
+                <!-- Authentication Links -->
 
-                            <a class="dropdown-item" href="" onclick="submit();" data-toggle="modal" data-target="#exampleModal">
-                                Dar de Baja
-                            </a>
-                    </li>
-                 </ul>
-            {% else %}
-                <a class="nav-link" href="{{ path('register_user') }}">Registrarse</a>
-                <a class="nav-link" href="{{ path('login') }}">Iniciar Sesión</a>
-            {% endif %}
-    </section>
-
+                {% if app.user %}
+                    <div class="cerrar dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          desplegable
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{{ path('logout') }}">Cerrar Sesión</a>
+                          <a class="dropdown-item" href="#">Dar de Baja</a>
+                        </div>
+                    </div>
+                    
+                {% else %}
+                    <a class="log-reg" href="{{ path('register_user') }}">Registrarse</a>
+                    <a class="log-reg" href="{{ path('login') }}">Iniciar Sesión</a>
+                {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
 </header>

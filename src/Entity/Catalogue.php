@@ -897,4 +897,50 @@ class Catalogue
         return $this->issues;
     }
 
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setCatalogue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            // set the owning side to null (unless already changed)
+            if ($item->getCatalogue() === $this) {
+                $item->setCatalogue(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addIssue(Issue $issue): self
+    {
+        if (!$this->issues->contains($issue)) {
+            $this->issues[] = $issue;
+            $issue->setCatalogue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIssue(Issue $issue): self
+    {
+        if ($this->issues->contains($issue)) {
+            $this->issues->removeElement($issue);
+            // set the owning side to null (unless already changed)
+            if ($issue->getCatalogue() === $this) {
+                $issue->setCatalogue(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -20,7 +20,7 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login
-                default_target_path: /login
+                default_target_path: /
                 provider: proveedor
            
             logout:
@@ -38,5 +38,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+#         - { path: ^/register_book, roles: ROLE_USER }
+#         - { path: ^/edit_catalogue, roles: ROLE_USER }
+#         - { path: ^/delete_catalogue, roles: ROLE_USER }
+#         - { path: ^/register_magazine, roles: ROLE_USER }
+#         - { path: ^/register_author, roles: ROLE_USER }
+#         - { path: ^/delete_author, roles: ROLE_USER }
+#         - { path: ^/edit_author, roles: ROLE_USER }
+#         - { path: ^/new_issue, roles: ROLE_USER }
+#         - { path: ^/edit_issue, roles: ROLE_USER }
+#         - { path: ^/delete_issue, roles: ROLE_USER }
+#         - { path: ^/new_item, roles: ROLE_USER }
+#         - { path: ^/edit_item, roles: ROLE_USER }
+#         - { path: ^/delete_issue, roles: ROLE_USER }

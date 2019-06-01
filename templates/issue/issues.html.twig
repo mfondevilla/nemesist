@@ -3,43 +3,78 @@
 {% block title %}Busqueda de números{% endblock %}
 
 {% block body %}
-    {% block content %}
+{% block content %}
 
-<div class="example-wrapper">
-    <h2>Items</h2>
-    <a href="{{ path('new_issue', {'id':catalogo.id}) }}" class="btn-show">Añadir número</a>
-	   
-    {% if catalogo is defined %}
-        <p>{{ catalogo.title }}</p>
-        <a href="{{ path('new_item', {'id':catalogo.id}) }}" class="btn-show">Crear nuevo item a este libro</a>
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Título</th>
-                <th>Volumen</th>
-                <th>Fecha</th>
-                <th>Número</th>
-                 <th>editar</th>
-                <th>Eliminar</th>
-            </tr>
-          
-        {% for issue in catalogo.issues %}
-            <tr>
-                <td>{{ issue.id }}</td>
-                <td>{{ issue.title }}</td>
-                <td>{{ issue.volume }}</td>
-                <td>{{ issue.year ~ '-' ~  issue.month  ~ '-' ~ issue.day }}</td>
-                <td>{{ issue.number }}</td>
-                <td><a href="{{ path('edit_issue', {'id':issue.id}) }}" class="btn-show">Editar</a></td>
-                <td><a href="{{ path('delete_issue', {'id':issue.id}) }}" class="btn-show">Eliminar</a></td>
-            </tr>  
-             
-        {% endfor %}
-        
-        </table>
-    {% endif %}
-    
-    
-</div>
+    <main class="principal principal-xs container">
+        <div class="row alto">
+            {{ include('includes/subnav.html.twig') }}
+            <div class="col-10">
+                <h2>Números</h2>
+                {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                    <a href="{{ path('new_issue', {'id':catalogo.id}) }}" class="btn-show">Añadir número</a>
+                {% endif %}
+                {% if catalogo is defined %}
+                    <p>{{ catalogo.title }}</p>
+                    <table>
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Volumen</th>
+                            <th>Fecha</th>
+                            <th>Número</th>
+                            <th>Imagen</th>
+                             <th>Items</th>
+                            <th>Acciones</th>
+                        </tr>
+
+                        {% for issue in issues %}
+                            <tr>
+                                <td>{{ issue.id }}</td>
+                                <td>{{ issue.title }}</td>
+                                <td>{{ issue.volume }}</td>
+                                <td>{{ issue.year ~ '-' ~  issue.month  ~ '-' ~ issue.day }}</td>
+                                <td>{{ issue.number }}</td>
+                                <td>
+                                    {% set cover = "" %}
+                                    {% for item in issue.items %}
+                                        {% if item.cover != "" %}
+                                            {% set cover = item.cover %}
+                                        {% endif %}
+
+                                    {% endfor %}
+                                        <div id="image">
+                                            {% if cover == ""%}
+                                               <img class="image_ico"  src={{ asset('images/item_images/no_disponible.png') }}>   
+                                            {% else %}
+                                               <img class="image_ico"  src={{ asset('images/item_images/' ~ cover) }}>
+                                            {% endif %}
+                                        </div>
+
+                                </td>
+                                <td>
+                                    {% set number_items = issue.items|length %}
+                                    {{ number_items }}
+                                </td>
+                                <td class="buttons">
+                                    <a href="{{ path('detail_issue', {'id':issue.id,'id_catalogue':catalogo.id}) }}" class="btn-show">Ver número</a>
+                                    {% if number_items > 0 %}
+                                        <a href="{{ path('item_issues', {'id':issue.id}) }}" class="btn-show">Ver items</a>   
+                                    {% endif %}
+                                    {% if app.user and app.user.role == "ROLE_ADMIN"%}
+                                        <a href="{{ path('register_issue_item', {'id':issue.id}) }}" class="btn-show">Nuevo item</a>
+                                    {% endif %}
+                                </td>
+                            </tr>  
+                        {% endfor %}
+                    </table>
+                    <div class="col-8 offset-md-2">
+                        <div class="paginacion navigation">
+                            {{ knp_pagination_render(paginacion) }}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
 {% endblock %}
 {% endblock %}

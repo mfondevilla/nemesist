@@ -1,3 +1,4 @@
+#*********************USER********************************#
 inicio:
     path: /
     controller: App\Controller\UserController::index
@@ -8,13 +9,21 @@ login:
     
 logout:
     path: /logout
+    
+map:
+    path: /map
+    controller: App\Controller\UserController::map
+
+mantenimiento:
+    path: /mantenimiento
+    controller: App\Controller\UserController::mantenimiento
 
 profile:
-    path: /perfil
+    path: /profile
     controller: App\Controller\UserController::profile
     
 edit_profile:
-    path: /editar_perfil
+    path: /edit_profile
     controller: App\Controller\UserController::edit_profile
     
 delete_profile:
@@ -22,8 +31,15 @@ delete_profile:
     controller: App\Controller\UserController::delete_profile
 
 register_user:
-    path: /registro_usuario
+    path: /register_user
     controller: App\Controller\UserController::register_user
+    
+search_generic:
+    path: /search_generic
+    controller: App\Controller\UserController::search_generic
+
+
+#*********************CATALOGUE********************************#
 
 register_book:
     path: /register_book
@@ -32,58 +48,6 @@ register_book:
 register_magazine:
     path: /register_magazine
     controller: App\Controller\CatalogueController::register_magazine
-    
-buscar_ini:
-    path: /buscar_ini
-    controller: App\Controller\AuthorityController::buscar_ini
-
-manage_authority:
-    path: /autores
-    controller: App\Controller\AuthorityController::index
-   
-new_author:
-    path: /new_author
-    controller: App\Controller\AuthorityController::new_author
- 
-edit_delete_author:
-    path: /editar_borrar_autor
-    controller: App\Controller\AuthorityController::edit_delete
-  
-edit_author:
-    path: /editar_autor/{id}
-    controller: App\Controller\AuthorityController::edit
-    
-delete_author:
-    path: /borrar_autor/{id}
-    controller: App\Controller\AuthorityController::delete
-
-search_author:
-    path: /buscar_autor
-    controller: App\Controller\AuthorityController::search_author
-
-buscar_autor:
-    path: /buscar_autor/{id}
-    controller: App\Controller\AuthorityController::buscar
-
-select_buscar_autor:
-    path: /select_buscar_autor/{id}
-    controller: App\Controller\AuthorityController::select_buscar_autor
-    
-catalogue:
-    path: /catalogo
-    controller: App\Controller\CatalogueController::all_catalogue
-    
-search_catalogue:
-    path: /buscar_nav
-    controller: App\Controller\SearchController::simpleSearch
-
-buscar_catalogue:
-    path: /buscar_catalogue
-    controller: App\Controller\CatalogueController::buscar
-
-custom_search:
-    path: /busqueda_personalizada
-    controller: App\Controller\SearchController::customSearch
 
 delete_catalogue:
     path: /delete_catalogue/{id}
@@ -93,42 +57,139 @@ edit_catalogue:
     path: /edit_catalogue/{id}
     controller: App\Controller\CatalogueController::edit_catalogue
       
-item_maintenance:
-    path: /buscar_item
-    controller: App\Controller\ItemController::buscar
-    
-issue_maintenance:
-    path: /buscar_issue
-    controller: App\Controller\IssueController::buscar
+search_catalogue:
+    path: /search_catalogue
+    controller: App\Controller\CatalogueController::search_catalogue
+      
+search_catalogue_ini:
+    path: /search_catalogue_ini
+    controller: App\Controller\CatalogueController::search_catalogue_ini
 
-display_items:
-    path: /ver_items/{id}
-    controller: App\Controller\ItemController::display_items
-    
-display_issues:
-    path: /ver_numeros/{id}
-    controller: App\Controller\IssueController::display_issues
+book_details:
+    path: /book_details/{id}
+    controller: App\Controller\CatalogueController::book_detail
 
-new_item:
-    path: /crear_item/{id}
-    controller: App\Controller\ItemController::create_item
+#manage_authority:
+#    path: /autores
+#    controller: App\Controller\AuthorityController::index
+#   
+#*********************AUTHORITY********************************#
+unassign_autority:
+    path: /unassign_author/{id_catalogue}-{id_authority}
+    controller: App\Controller\AuthorityController::unassign_author
+    
+register_author:
+    path: /register_author
+    controller: App\Controller\AuthorityController::register_author
+ 
+#edit_delete_author:
+#    path: /edit_delete_author
+#    controller: App\Controller\AuthorityController::edit_delete
+  
+edit_author:
+    path: /edit_author/{id}
+    controller: App\Controller\AuthorityController::edit
+    
+delete_author:
+    path: /delete_author/{id}
+    controller: App\Controller\AuthorityController::delete_author
+
+search_authority_ini:
+    path: /search_authority_ini
+    controller: App\Controller\AuthorityController::search_authority_ini
+
+search_author:
+    path: /search_author
+    controller: App\Controller\AuthorityController::search_author
+    
+detail_author:
+    path: /detalle_author/{id}
+    controller: App\Controller\AuthorityController::detail_author
+    
+buscar_autor_ini:
+    path: /buscar_autor_ini/{id}
+    controller: App\Controller\AuthorityController::buscar_autor_ini
+    
+buscar_autor:
+    path: /buscar_autor
+    controller: App\Controller\AuthorityController::buscar
+
+asign_autor:
+    path: /asign_autor/{id}
+    controller: App\Controller\AuthorityController::asign_autor
+    
+#*********************SEARCH********************************#
+
+#search_catalogue:
+#    path: /buscar_nav
+#    controller: App\Controller\SearchController::simpleSearch
+    
+custom_search:
+    path: /busqueda_personalizada
+    controller: App\Controller\SearchController::customSearch
+
+
+#*********************ISSUE********************************#
+
+search_issue_ini:
+    path: /search_issue_ini
+    controller: App\Controller\IssueController::search_issue_ini
+
+detail_issue:
+    path: /detalle_numero/{id}-{id_catalogue}
+    controller: App\Controller\IssueController::detail_issue
+
+search_issue:
+    path: /search_issue
+    controller: App\Controller\IssueController::search_issue
+    
+search_issues:
+    path: /search_issues/{id}
+    controller: App\Controller\IssueController::search_issues
     
 new_issue:
-    path: /crear_issue/{id}
+    path: /new_issue/{id}
     controller: App\Controller\IssueController::create_issue
+    
+edit_issue:
+    path: /edit_issue/{id}
+    controller: App\Controller\IssueController::edit_issue
+    
+delete_issue:
+    path: /delete_issue/{id}
+    controller: App\Controller\IssueController::delete_issue
+    
+issue_ini:
+    path: /issue_detail/{id}
+    controller: App\Controller\IssueController::issue_ini
+    
+    
+#************************ITEM********************************#
+
+search_items:
+    path: /search_items/{id}
+    controller: App\Controller\ItemController::search_items
+
+item_issues:
+    path: /item_issues/{id}
+    controller: App\Controller\ItemController::display_items_issue
+
+register_item:
+    path: /register_item/{id}
+    controller: App\Controller\ItemController::register_item
+    
+register_issue_item:
+    path: /register_issue_item/{id}
+    controller: App\Controller\ItemController::register_issue_item
     
 edit_item:
     path: /editar_item/{id}
     controller: App\Controller\ItemController::edit_item
     
-edit_issue:
-    path: /editar_issue/{id}
-    controller: App\Controller\IssueController::edit_issue
-    
 delete_item:
-    path: /eliminar_item/{id}
+    path: /delete_item/{id}
     controller: App\Controller\ItemController::delete_item
     
-delete_issue:
-    path: /eliminar_issue/{id}
-    controller: App\Controller\IssueController::delete_issue
+delete_item_issue:
+    path: /eliminar_item_issue/{id}
+    controller: App\Controller\ItemController::delete_item_issue

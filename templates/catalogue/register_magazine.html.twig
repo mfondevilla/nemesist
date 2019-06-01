@@ -10,7 +10,12 @@
 
 {% block body %}
 
-<div class="example-wrapper">
+ <main class="principal principal-xs container">
+        <div class="row alto">
+        {{ include('includes/subnav.html.twig') }}
+        
+       <div class="col-8 col-8">
+    
     <h2>
         {% if edit is defined %}
             Editar Magazine
@@ -22,4 +27,6 @@
     {{ form_widget(form) }}
     {{ form_end(form) }}
 </div>
+        </div>
+ </main>
 {% endblock %}

@@ -2,48 +2,64 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Form\RegisterType;
-use App\Entity\User;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Service\DataService;
+use App\Form\UserType;
+use App\Entity\User;
 
 
 class UserController extends AbstractController
 {
     public function index()
     {
-        return $this->render('includes/main.html.twig');
+        return $this->render('views/main.html.twig', [
+            'opcion' => 1
+        ]);
     }
    
-     public function profile(UserInterface $user)
+    public function profile(UserInterface $user)
     {
         return $this->render('user/profile.html.twig', [
-            'user' => $user
+            'user' => $user,
+            'opcion' => 0
         ]);
     }
     
+    public function map ()
+    {
+        return $this->render('views/map.html.twig', [
+            'opcion' => 2
+        ]);
+    }
+    
+    public function mantenimiento ()
+    {
+        return $this->render('views/mantenimiento.html.twig', [
+            'opcion' => 3
+        ]);
+    }
     
     public function login(AuthenticationUtils $authentication)
     {
         $error = $authentication->getLastAuthenticationError();
         $lastUsername = $authentication->getLastUsername();
   
-        
         return $this->render('user/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
+            'opcion'=> 0
         ]);
     }
     
     public function register_user(Request $request, UserPasswordEncoderInterface $encoder){
         
         $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         
         $form->handleRequest($request);
         
@@ -63,14 +79,15 @@ class UserController extends AbstractController
             
         }
         
-         return $this->render('user/register.html.twig', [
-          'form'=>$form->createView()
+        return $this->render('user/register.html.twig', [
+            'form'=>$form->createView(),
+            'opcion'=>0
         ]);
     }
     
     public function edit_profile(Request $request, UserInterface $user) {
        
-        $form = $this->createForm(RegisterType::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,23 +99,51 @@ class UserController extends AbstractController
             $em->flush();
             
             return $this->render('home/index.html.twig', [
-                'user' => $user
+                'user' => $user,
+                'opcion'=>0
             ]);
         }
         
         return $this->render('user/register.html.twig', [
             'user' => $user,
-            'form' => $form->createView()
+            'edit' => 1,
+            'form' => $form->createView(),
+            'opcion'=>0
         ]);
     }
     
-      public function delete_profile(UserInterface $user) {
-
-       
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+    public function delete_profile(UserInterface $user) {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
         
         return $this->render('home/index.html.twig');
+    }
+    
+    public function search_generic(Request $request, DataService $dataService) 
+    {
+        $paginacion= null;
+        $catalogues = null;
+        $message = "";
+        if ($request->isMethod('post'))
+        {
+            $_SESSION['pagination'] = $request->get('search');
+            $paginacion = $dataService->ReturnDataGeneric($request);
+            $catalogues = $paginacion->getItems();
+        }else{
+            if (isset($_SESSION['pagination'])) 
+            {
+                $request->attributes->set('search',$_SESSION['pagination']);
+                $paginacion = $dataService->ReturnDataGeneric($request);
+                $catalogues = $paginacion->getItems();
+            }
+        }
+        
+        return $this->render('views/search_generic.html.twig', [
+                'paginacion' => $paginacion,
+                'catalogues' => $catalogues,
+                'message' => $message,
+                'opcion' => 0
+            ]);
     }
 }

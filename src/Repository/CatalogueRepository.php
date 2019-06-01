@@ -26,7 +26,8 @@ class CatalogueRepository extends ServiceEntityRepository{
     {
         return $this->createQueryBuilder('b')
                ->where("b.title LIKE :title")
-                ->setParameter("title", "%{$title}%")
+                 ->setParameter("title", "%{$title}%")
+                ->andWhere("b.periodicity = ''")
                 ->getQuery()
                 ->getResult();
        
