@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Busqueda de autores{% endblock %}
+
+{% block body %}
+    <main class="principal principal-xs container">
+        <div class="row alto">
+            {{ include('includes/subnav.html.twig') }}
+            <div class="col-10">
+                {% if catalogo is defined %}
+                    <h2>Búsqueda de Autores para</h2>"{{ catalogo.title }}"<br/><br/>
+                {% else %}
+                    <h2>Búsqueda de Autores</h2><br/>
+                {% endif %}
+                <form action="{{ path('search_author') }}" method="POST">
+                    <label for="search">Buscar: </label>
+                    <input type="text" id="search" name="search" value ="" />
+                    <input type="submit" value="Enviar" name = "enviar"/>
+                </form>
+                <br/>
+                <br/>
+
+                <!-- /////SÓLO BUSCA AUTORES -->
+                {% if authorities|length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Tipo Autor</th>
+                            <th>Obras</th>
+                            <th>Acciones</th>
+                        </tr>
+                        {% for author in authorities %}
+                            <tr>
+                                <td>{{ author.name }}</td>
+                                <td>{{ author.typeauth }}</td>
+                                <td>{{ author.catalogue|length }}</td>
+                                <td class="buttons">
+                                    <a href="{{ path('detail_author',{'id':author.id}) }}" class="btn-show">Ver Autor</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="col-8 offset-md-2">
+                        <div class="paginacion navigation">
+                            {{ knp_pagination_render(paginacion) }}
+                        </div>
+                    </div>
+                {% else %}
+                    <p>{{ message }}</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

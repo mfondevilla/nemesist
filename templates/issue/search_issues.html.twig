@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}Busqueda de items por catálogo{% endblock %}
+
+{% block body %}
+{% block content %}
+    <main class="principal principal-xs container">
+        <div class="row alto">
+            {{ include('includes/subnav.html.twig') }}
+            <div class="col-10">
+
+                <h2>Busqueda de números de revista por Revista</h2>
+                <form action="{{ path('search_issue') }}" method="POST">
+                    <label for="search">Buscar: </label>
+                    <input type="text" id="search" name="search" value ="" />
+                    <input type="submit" value="Buscar" name = "issue_maintenance"/>
+                </form>
+                {% if catalogues|length > 0 %}
+                    <table>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Subtitulo</th>
+                            <th>Idioma</th>
+                            <th>Periodicidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                        {% for catalogue in catalogues %} 
+
+                            <tr>
+                                <td>{{ catalogue.title }}</td>
+                                <td>{{ catalogue.subtitle }}</td>
+                                <td>{{ catalogue.language }}</td>
+                                <td>{{ catalogue.periodicity }}</td>
+                                <td class="buttons">
+                                    <a href="{{ path('search_issues', {'id':catalogue.id}) }}" class="btn-show">Ver Número</a>
+                                    <a href="{{ path('issue_ini', {'id':catalogue.id}) }}" class="btn-show">Ver Detalle</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="col-8 offset-md-2">
+                        <div class="paginacion navigation">
+                            {{ knp_pagination_render(paginacion) }}
+                        </div>
+                    </div>
+                {% else %}
+                    <p>{{ message }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
+{% endblock %}

@@ -4,9 +4,14 @@
 
 {% block body %}
 {% block content %}
-<div class="example-wrapper">
+     <main class="principal principal-xs container">
+        <div class="row alto">
+        {{ include('includes/subnav.html.twig') }}
+        
+       <div class="col-8">
+    
     <h2>Busqueda de ejemplares por catálogo</h2>
-    <form action="{{ path('item_maintenance') }}" method="POST">
+    <form action="{{ path('item_book_maintenance') }}" method="POST">
         
         <label for="search">Buscar: </label>
         <input type="text" id="search" name="search" value ="" />
@@ -21,20 +26,23 @@
                 <th>Idioma</th>
             </tr>
             {% for catalogue in catalogues %} 
-              
+                       
                 <tr>
                     <td>{{ catalogue.title }}</td>
                     <td>{{ catalogue.subtitle }}</td>
                     <td>{{ catalogue.language }}</td>
                     <td class="buttons">
-                        <a href="{{ path('display_items', {'id':catalogue.id}) }}" class="btn-show">Ver Items</a>
+                        <a href="{{ path('search_items', {'id':catalogue.id}) }}" class="btn-show">Ver Items</a>
                     </td>
                 </tr>
+              
             {% endfor %}
         </table>
     {% else %}
         <p>{{ message }}</p>
     {% endif %}
 </div>
+        </div>
+     </main>
 {% endblock %}
 {% endblock %}

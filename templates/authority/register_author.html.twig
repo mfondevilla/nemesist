@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Controlador authority{% endblock %}
+{% block body %}
+{% block content %}
+ <main class="principal principal-xs container">
+        <div class="row alto">
+        {{ include('includes/subnav.html.twig') }}
+
+      <div class="col-sm-8">    
+         
+    <h2>
+        {% if edit is defined %}
+            Editar autor
+        {% else %}
+            Crear  autor
+        {% endif %}
+        
+         <br/><br/>    
+    </h2>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+      </div>
+  
+{% endblock %}
+{% endblock %}

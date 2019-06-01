@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Perfil Authority{% endblock %}
+
+{% block body %}
+    {% block content %} 
+        <main id = "principal" class="container contenido-profile">
+            <div class="row">
+                <section class="col-sm-2 col-md-2 col-lg-2 offset-md-2">
+                    <img class="" src="{{ asset('assets/images/perfil_defect.png') }}" alt="Logo por Defecto Perfil" />
+                    <a class="btn btn-primary" href="{{ path('edit_author', {'id': authority.id}) }}">Editar</a>
+                    <a class="btn btn-danger"  href="{{ path('delete_author', {'id': authority.id}) }}">Borrar</a> 
+                </section>
+                <section class="col-sm-6 col-md-6 col-lg-6">
+                    <h1 id="nombre-profile">{{ authority.name }}</h1>
+                    <h2>{{ authority.typeauth }}</h2>
+                </section>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th>Titulo</th>
+                        <th>Subtitulo</th>
+                        <th>Idioma</th>
+                        <th>Imagen</th>
+                        <th>Num items</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for catalogue in authority.catalogue %}
+                        <tr>
+                            <td>{{ catalogue.title }}</td>
+                            <td>{{ catalogue.subtitle }}</td>
+                            <td>{{ catalogue.language }}</td>
+                            <td>
+                                {% set cover = "" %}
+                                {% for item in catalogue.items %}
+                                    {% if item.cover != "" %}
+                                        {% set cover = item.cover %}
+                                    {% endif %}
+                                {% endfor %}
+                                <div id="image">
+                                  {% if cover == ""%}
+                                     <img class="image_ico"  src={{ asset('images/item_images/no_disponible.png') }}>   
+                                  {% else %}
+                                     <img class="image_ico"  src={{ asset('images/item_images/' ~ cover) }}>
+                                  {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ catalogue.items|length }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    {% endblock %}
+{% endblock %}

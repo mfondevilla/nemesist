@@ -13,25 +13,28 @@ class CatalogueBookType extends AbstractType {
                       'label' => 'Titulo'
                      ))
                 ->add('subtitle', TextType::class, array(
-                      'label' => 'SubTitulo'
+                      'label' => 'SubTitulo',
+                      'required' => false
                      ))
                 ->add('translate_title', TextType::class, array(
-                      'label' => 'Titulo Traducido'
+                      'label' => 'Titulo Traducido',
+                      'required' => false
                      ))
                 ->add('edition', TextType::class, array(
-                      'label' => 'Edición'
-                     ))
-                ->add('publisher', TextType::class, array(
-                      'label' => 'Editorial'
+                      'label' => 'Edición',
+                      'required' => false
                      ))
                 ->add('year_publication', TextType::class, array(
-                      'label' => 'Año de Publicación'
+                      'label' => 'Año de Publicación',
+                      'required' => false
                      ))
                 ->add('place_publication', TextType::class, array(
-                      'label' => 'Lugar de Publicación'
+                      'label' => 'Lugar de Publicación',
+                      'required' => false
                      ))
                 ->add('document_type', ChoiceType::class, array(
                       'label' => 'Tipo de Documento',
+                      'required' => false,
                       'choices' => array (
                           'Acta de Congreso' => 'conference report',
                           'Audio Visual' => 'visual audio',
@@ -47,13 +50,16 @@ class CatalogueBookType extends AbstractType {
                           'Separata' => 'separate'
                      )))
                 ->add('subdoc_type', TextType::class, array(
-                      'label' => 'Tipo de Subdocumento'
+                      'label' => 'Tipo de Subdocumento',
+                      'required' => false
                      ))
                 ->add('physical_description', TextType::class, array(
-                      'label' => 'Descripción Física'
+                      'label' => 'Descripción Física',
+                      'required' => false
                      ))
                 ->add('language', ChoiceType::class, array(
                       'label' => 'Idioma',
+                      'required' => false,
                       'choices' => array (
                           'Español' => 'spanish',
                           'Ingles' => 'english',
@@ -63,19 +69,19 @@ class CatalogueBookType extends AbstractType {
                           'Alemán' => 'german'
                      )))
                 ->add('notes', TextType::class, array(
-                      'label' => 'Notas'
+                      'label' => 'Notas',
+                      'required' => false
                      ))
                 ->add('numb_copies', TextType::class, array(
-                      'label' => 'Número de Copias'
+                      'label' => 'Número de Copias',
+                      'required' => false
                      ))
                 ->add('ISBN', TextType::class, array(
-                      'label' => 'ISBN'
-                     ))
-                ->add('cover', TextType::class, array(
-                      'label' => 'Portada'
+                      'label' => 'ISBN',
+                      'required' => false
                      ))
                 ->add('submit', SubmitType::class, array(
-                      'label' => 'Registrarse'
+                      'label' => 'Guardar'
         ));
     }
 }

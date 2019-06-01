@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Controlador catalogue{% endblock %}
+
+{% block body %}
+    <main class="principal_producto principal-xs container">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/search_catalogue">Busqueda</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Libro</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <!--<h2 class="h3">Sobremesa HP 16-AL2NS | 17 Pugdas i7-20M | 8GB RAM | 1TB Disco</h2>-->
+            <p class="h3 col-sm-12">{{ catalogue.title }}</p>
+            </br>
+            <p class="h4 col-sm-12">{{ catalogue.subtitle }}</p>
+        </div>
+        <div class="row">
+            <section class="col-sm-9">
+                <div class="producto row">
+                    <div id="contenido" class="col-xs-12 col-sm-8 col-md-6">
+                        <img id="producto" class="col-sm-12 img_principal" src="{{ asset('images/item_images/no_disponible.png') }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
+                    </div>
+                    <div class="hidden-xs col-sm-4">
+                        <div class="opinion">
+                            <p class="h4"><img class="estrellas" src="{{ asset('images/item_images/5estrellas.png') }}" alt="">  3 Opiniones</p>
+                            <p class="h6">Escribir una opinión</p>
+                        </div>
+                        <div class="">
+                            <p>Traducido:  {{ catalogue.translateTitle }}</p>
+                            <p>Edición: {{ catalogue.edition }}</p>
+                            <p>Año de Publicación: {{ catalogue.yearPublication }}</p>
+                            <p>Tipo de Documento: {{ catalogue.documentType }}</p>
+                            <p>Idioma: {{ catalogue.language }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                    <div class="row">
+                        <a class="btn btn-primary" href="{{ path('edit_catalogue', {'id':catalogue.id}) }}">Editar</a>
+                        <a class="btn btn-danger"  href="{{ path('delete_catalogue', {'id':catalogue.id}) }}">Borrar</a> 
+                    </div>
+                {% endif %}
+            </section>
+            <section class="venta venta-lg centrado col-xs-offset-2 col-sm-offset-0 col-xs-8 col-sm-3">
+                <p class="h4">Autores: </p>
+                
+                {% set authors = [] %}
+                {% set publishers = [] %}
+                {% for author in catalogue.authority %}
+                    {% if author.typeauth != 'Editoriales' %}
+                        {% set authors = authors | merge({ name: author.name}) %}
+                    {% else %}
+                        {% set publishers = publishers | merge({ name: author.name}) %}
+                    {% endif %}
+                {% endfor %}
+         
+                
+                {% if publishers|length > 0 %}
+                    <label>Editorial</label>
+                    <input type="text" value ="{{ publishers.name }}" readonly/>
+                {% endif %}
+                
+                {% if authors|length > 0 %}
+                    {% for author_name in authors %}
+                        <p class="h6">{{ author_name }}</p>
+                    {% endfor %}
+                {% endif %}
+                
+            </section>
+        </div>
+    </main>
+{% endblock %}
+
