@@ -20,8 +20,10 @@ class CatalogueController extends AbstractController
         $paginacion = "";
         $message = "";
         $catalogues = "";
+        if(isset($_SESSION['pag_book'])){
+            unset($_SESSION['pag_book']);
+        }
         
-        unset($_SESSION['pag_book']);
         
         return $this->render('catalogue/asign_book_autor.html.twig', [
                 'paginacion' => $paginacion,
@@ -38,16 +40,22 @@ class CatalogueController extends AbstractController
         $message = "";
         if ($request->isMethod('post'))
         {
-            $_SESSION['pag_book'] = $request->get('search');
-            $paginacion = $dataService->ReturnDataBook($request);
+            if(isset($_SESSION)){
+                $_SESSION['pag_book'] = $request->get('search');
+            } else {
+                session_start();
+                $_SESSION['pag_book'] = $request->get('search');
+            }
+           
+          
+            $paginacion = $dataService->ReturnDataBook($request );
             $catalogues = $paginacion->getItems();
         } else {
-            if (isset($_SESSION['pag_book'])) 
-            {
-                $request->attributes->set('search',$_SESSION['pag_book']);
+          
+                $request->attributes->set('search', $_SESSION['pag_book'] );
                 $paginacion = $dataService->ReturnDataBook($request);
                 $catalogues = $paginacion->getItems();
-            }
+           
         }
         
         return $this->render('catalogue/asign_book_autor.html.twig', [
@@ -83,12 +91,9 @@ class CatalogueController extends AbstractController
             $em->persist($catalogue);
             $em->flush();
             
-            $_SESSION['catalogue'] = $catalogue;
             
-            return $this->render('authority/buscar_autor.html.twig', [
-            'autores' => null,
-            'message' => "",
-            'catalogo' => $catalogue,
+            return $this->render('catalogue/detail_magazine.html.twig', [
+            'catalogue' => $catalogue,
             'opcion' => 3
         ]);
         }
@@ -101,27 +106,45 @@ class CatalogueController extends AbstractController
 
     public function register_book(Request $request)//, UserInterface $user
     {
-        //Crear formulario
+      
         $catalogue = new Catalogue();
+        //si se ha cargado una imagen se añade a la carpeta item_images
+        $fileTmpPath = "";
+        if (isset($_FILES['catalogue_book'])) {
+            $fileTmpPath = $_FILES['catalogue_book']['tmp_name']['cover'];
+            $fileName = $_FILES['catalogue_book']['name']['cover'];
+      
+            $images_field = "../public/images/item_images/";
+            $route = $images_field . $fileName;
+
+            if (move_uploaded_file($fileTmpPath, $route)) {
+                $message = 'Se ha cargado bien la imagen';
+            } else {
+                $message = 'No se ha podido cargar la imagen';
+            }
+
+        }
         $form = $this->createForm(CatalogueBookType::class, $catalogue);
-        
         //Rellenar el objeto con los datos del formulario
         $form->handleRequest($request);
         
         //Comprobar si se ha enviado
         if ($form->isSubmitted() && $form->isValid()) {
-            
+          //añadimos la ruta de la imagen al catalogo
+            if (isset($_FILES['catalogue_book'])) {
+                $catalogue->setCover($fileName);
+            }
             //Guardamos el usuario
             $em = $this->getDoctrine()->getManager();
             $em->persist($catalogue);
             $em->flush();
             
-            $_SESSION['catalogue'] = $catalogue;
+         //   $_SESSION['catalogue'] = $catalogue;
             
-            return $this->render('authority/buscar_autor.html.twig', [
-            'autores' => null,
+            return $this->render('catalogue/detail_book.html.twig', [
+          
             'message' => "",
-            'catalogo' => $catalogue,
+            'catalogue' => $catalogue,
             'opcion' => 3
         ]);
         }
@@ -147,32 +170,44 @@ class CatalogueController extends AbstractController
         
         return $this->render('catalogue/asign_book_autor.html.twig', [
                 'message' => "Libro eliminado correctamente",
-                'opcion' => 3
+                'opcion' => 3,
+                'catalogues'=>null
             ]);
     }
     
     public function edit_catalogue(Request $request, Catalogue $catalogue, UserInterface $user) 
     {
-        
-//        if (!$user || $user->getId() != $task->getUser()->getId()) {
-//            return $this->redirectToRoute('tasks');
-//        }
-//        $id_catalogue = $catalogue->getId();
-        $catalogues = null;
+
         $form = $this->createForm(CatalogueBookType::class, $catalogue);
         $form->handleRequest($request);
-       
+        $fileTmpPath = "";
+        if (isset($_FILES['catalogue_book'])) {
+                    $fileTmpPath = $_FILES['catalogue_book']['tmp_name']['cover'];
+                    $fileName = $_FILES['catalogue_book']['name']['cover'];
+
+                    $images_field = "../public/images/item_images/";
+                    $route = $images_field . $fileName;
+
+                    if (move_uploaded_file($fileTmpPath, $route)) {
+                        $message = 'Se ha cargado bien la imagen';
+                    } else {
+                        $message = 'No se ha podido cargar la imagen';
+                    }
+
+                }
         if ($form->isSubmitted() && $form->isValid()) {
-            //$task->setCreateAt(new \DateTime('now'));
-            //$task->setUser($user);
+              
+          if (isset($_FILES['catalogue_book'])) {
+                $catalogue->setCover($fileName);
+            }
             $catalogue->setEditingIdUser($user->getId());
             $em = $this->getDoctrine()->getManager();
             $em->persist($catalogue);
             $em->flush();
 
-          return $this->render('catalogue/asign_book_autor.html.twig', [
+          return $this->render('catalogue/detail_book.html.twig', [
                 'opcion' => 3,
-                'catalogues'=>$catalogues,
+                'catalogue'=>$catalogue,
                 'message'=>'',
             ]);
         }
@@ -185,83 +220,51 @@ class CatalogueController extends AbstractController
         ]);
     }
     
-//    public function new_catalogue(Request $request){
-//       
-//         // creates a task and gives it some dummy data for this example
-//        $catalogue = new Catalogue();
-//        $catalogue->setCreationIdUser($_SESSION['user-id']);
-//        
-//        $form = $this->createFormBuilder($catalogue)
-//            ->add('title', TextType::class)
-//            ->add('subtitle', DateType::class)
-//            ->add('save', SubmitType::class, ['label' => 'Nuevo'])
-//            ->getForm();
-//
-//        return $this->render('catalogue/new.html.twig', [
-//            'form' => $form->createView(),
-//            'opcion'=>3
-//        ]);
-//    }
-    
-    
-//    public function search(Request $request)
-//    {
-//       
-//        $catalogue = new Catalogue();
-//                    
-//        $form = $this->createform(RegisterType::class, $catalogue);
-//        $form->handleRequest($request);
-//        if($form->isSubmitted() && $form->isValid()){
-//             
-//        }
-//     
-//        $request = $this->getRequest();
-//        if ($request->getMethod() == 'POST') {
-//
-//            $title = $request->get('title');
-//
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $book = $em->getRepository('ComunicacionBundle:Departamentos ')->findOneBy(array('slug' => $title));
-//
-//            return $this->render('catalogue/search_catalogue.html.twig',  [
-//              'form'=>$form->createView(),
-//                'opcion'=>3
-//            ]);
-//        }
-//    }
+      public function edit_magazine(Request $request, Catalogue $catalogue, UserInterface $user) 
+    {
 
-//    public function register_book_autor(catalogue $catalogue)
-//    {
-//        if (!$catalogue) 
-//        {
-//            return $this->redirectToRoute('login');
-//        }
-//        
-//        //$em = $this->getDoctrine()->getManager();
-//        $autor_repo = $this->getDoctrine()->getRepository(Authority::class);
-//        $autores = $autor_repo->findAll();
-//        
-//        return $this->render('catalogue/register_book_autor.html.twig', [
-//            'autores' => $autores,
-//            'opcion'=>3
-//        ]);
-//    }
+        $form = $this->createForm(CatalogueMagazineType::class, $catalogue);
+        $form->handleRequest($request);
+        $fileTmpPath = "";
+        if (isset($_FILES['catalogue_book'])) {
+                    $fileTmpPath = $_FILES['catalogue_book']['tmp_name']['cover'];
+                    $fileName = $_FILES['catalogue_book']['name']['cover'];
+
+                    $images_field = "../public/images/item_images/";
+                    $route = $images_field . $fileName;
+
+                    if (move_uploaded_file($fileTmpPath, $route)) {
+                        $message = 'Se ha cargado bien la imagen';
+                    } else {
+                        $message = 'No se ha podido cargar la imagen';
+                    }
+
+                }
+        if ($form->isSubmitted() && $form->isValid()) {
+              
+          if (isset($_FILES['catalogue_book'])) {
+                $catalogue->setCover($fileName);
+            }
+            $catalogue->setEditingIdUser($user->getId());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($catalogue);
+            $em->flush();
+
+          return $this->render('catalogue/detail_magazine.html.twig', [
+                'opcion' => 3,
+                'catalogue'=>$catalogue,
+                'message'=>'',
+            ]);
+        }
+        
+        return $this->render('catalogue/register_magazine.html.twig', [
+            'edit' => true,
+            'form' => $form->createView(),
+            'catalogues'=>$catalogue,
+            'opcion' => 3
+        ]);
+    }
     
-//    public function register_book_autor_action(Request $request)
-//    {
-//        
-//        
-//        if (!isset($_SESSION['authors']))
-//        {
-//            $authors = $_SESSION['authors'];
-//        } 
-//        
-//        return $this->render('catalogue/register_book.html.twig', [
-//            'form' => $form->createView(),
-//            'opcion'=>3
-//        ]);
-//    }
     
     
 }

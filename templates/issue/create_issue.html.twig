@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Busqueda de números por revista{% endblock %}
+{% block title %}
+ {% if edit is defined %}
+        Editar número 
+    {% else %}
+        Registrar número
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 {% block content %}
@@ -14,7 +20,7 @@
         {% if edit is defined %}
             Editar número 
         {% else %}
-            Crear número {{ catalogue.title }}
+            Registrar número {{ catalogue.title }}
         {% endif %}
         
     </h2>

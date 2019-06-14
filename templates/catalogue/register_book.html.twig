@@ -1,68 +1,75 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro de Libros{% endblock %}
+{% block title %}
+   {% if edit is defined %}
+        Registro de Libros 
+   
+    {% endif %}
+        
+{% endblock %}
 
 {% block body %}
 {% block content %}
- <main class="principal principal-xs container">
+    <main class="principal principal-xs container">
         <div class="row alto">
-        {{ include('includes/subnav.html.twig') }}
-        
-       <div class="col-sm-5">
-    
-      <h2>
-        {% if edit is defined %}
-            Editar Libro
-        {% else %}
-            Registro de Libros
-        {% endif %}
-    </h2>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-    {% if app.user and app.user.role == "ROLE_ADMIN" %}
-        {% if catalogues is defined %}
-            <button type="submit"><a href="{{ path('buscar_autor_ini', {'id':catalogues.id}) }}" class="btn-show" style="text-decoration:none; color:white">Añadir Autor</a></button>
-        {% endif %}
-    {% endif %}
-</div>
-    <div class="col-sm-4 ">
-    {% if catalogues is defined %}
-        
-           {% set authors = [] %}
-            {% set publishers = [] %}
-            {% for author in catalogues.authority %}
-                {% if author.typeauth != 'Editoriales' %}
-                    {% set authors = authors | merge({ name: author.name}) %}
-                     {% set authors = authors | merge({ id: author.id}) %}
-                {% else %}
-                    {% set publishers = publishers | merge({ name: author.name}) %}
-                      {% set publishers = publishers | merge({ id: author.id}) %}
-                 {% endif %}
-            {% endfor %}
-            
-       <label>Editorial</label>
-       {% if publishers|length >0 %}
-            <input type="text" value ="{{ publishers.name }}" readonly/>
-            {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                <button type="submit"><a href={{ path('unassign_autority', {'id_catalogue':catalogues.id, 'id_authority': publishers.id}) }} class="btn-show" style="text-decoration:none; color:white">Desasignar editorial</a></button>
-            {% endif %}
-        {% endif %}
-         <br/>
-        <label>Author/es</label>
-        {% if authors|length >0 %}
-            {% for authority in catalogues.authority %}
-                 <input type="text" value ="{{ authority.name }}" readonly/>
-                {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                    <button type="submit"><a href={{ path('unassign_autority', {'id_catalogue':catalogues.id, 'id_authority': authority.id}) }} class="btn-show" style="text-decoration:none; color:white">Desasignar autor</a></button>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-    {% endif %}
-        </div>
-  
+            {{ include('includes/subnav.html.twig') }}
+            <div class="col-sm-5 offset-md-1">
+                <h2>
+                    {% if edit is defined %}
+                        <p class="titutlo_registro text-center">Editar Libro</p>
+                    {% else %}
+                        <p class="titutlo_registro text-center">Registro de Libros</p>
 
+                    {% endif %}
+                </h2>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+                {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                    {% if catalogues is defined %}
+                        <button type="submit"><a href="{{ path('buscar_autor_ini', {'id':catalogues.id}) }}" class="confirmar">Añadir Autor</a></button>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col-sm-4 ">
+                {% if catalogues is defined %}
+                    {% set authors = [] %}
+                    {% set publishers = [] %}
+                    {% for author in catalogues.authority %}
+                        {% if author.typeauth != 'Editoriales' %}
+                            {% set authors = authors | merge({ name: author.name}) %}
+                            {% set authors = authors | merge({ id: author.id}) %}
+                        {% else %}
+                            {% set publishers = publishers | merge({ name: author.name}) %}
+                            {% set publishers = publishers | merge({ id: author.id}) %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <p class="h4">Editorial</p>
+                    {% if publishers|length >0 %}
+                          <p class="h6">{{ publishers.name }}</p>
+                        {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                            <button type="submit">
+                                <a href="{{ path('unassign_autority', {'id_catalogue':catalogues.id, 'id_authority': publishers.id}) }}" class="confirmar">Desasignar editorial</a>
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                    <br/><br/>
+                    <p class="h4">Autor/es</p>
+                    {% if authors|length >0 %}
+                        {% for authority in catalogues.authority %}
+                            <p class="h6">{{ authority.name }}</p>
+                        
+                            {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                <button type="submit">
+                                    <a href="{{ path('unassign_autority', {'id_catalogue':catalogues.id, 'id_authority': authority.id}) }}" class="confirmar">Desasignar autor</a>
+                                </button>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div>
         </div>
- </main>
+    </main>
 {% endblock %}
 {% endblock %}

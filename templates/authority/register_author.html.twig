@@ -1,27 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Controlador authority{% endblock %}
+{% block title %}Registro de autores{% endblock %}
 {% block body %}
 {% block content %}
- <main class="principal principal-xs container">
+    <main class="principal principal-xs container">
         <div class="row alto">
-        {{ include('includes/subnav.html.twig') }}
-
-      <div class="col-sm-8">    
-         
-    <h2>
-        {% if edit is defined %}
-            Editar autor
-        {% else %}
-            Crear  autor
-        {% endif %}
-        
-         <br/><br/>    
-    </h2>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-      </div>
-  
+            {{ include('includes/subnav.html.twig') }}
+            <div class="col-sm-6  offset-md-2">    
+                <h2>
+                    {% if edit is defined %}
+                        <p class="titutlo_registro text-center">Editar autor</p>
+                    {% else %}
+                        <p class="titutlo_registro text-center">Registrar Autor</p>
+                    {% endif %} 
+                </h2>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </main>
 {% endblock %}
 {% endblock %}

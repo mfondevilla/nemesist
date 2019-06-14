@@ -92,7 +92,7 @@ class CatalogueMagazineType extends AbstractType {
                       'required' => false
                      ))
                 ->add('submit', SubmitType::class, array(
-                      'label' => 'Registrarse'
+                      'label' => 'Guardar'
         ));
     }
 }

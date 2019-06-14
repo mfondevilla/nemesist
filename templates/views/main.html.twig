@@ -1,7 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}mnemesis{% endblock %}
+{% block title %}mnemesist{% endblock %}
 
 {% block body %} 
-    {{ include('includes/carrusel.html.twig') }}
+    <main class="container">
+        {{ include('includes/carrusel.html.twig') }}
+        <div class="row contenido-perfil">
+            <h3>¿Qué es MNEMESIST?</h3>
+
+
+            <div class="col-lg-4">
+
+            </div>
+        </div>
+        <div class="row contenido-perfil">
+            <div class="col-lg-4">
+                <figure>
+                    <a>
+                        <img class="imagen-portada" src="{{ asset('assets/images/pritia.jpg') }}" />
+                    </a>
+                    <figcaption class="foto-pie">
+                        <span class="foto-texto">Pirita</span>
+                    </figcaption>
+                </figure>
+            </div>
+            <article class="col-lg-8">
+                <h2 class="titulo-portada">SISTEMA DE GESTIÓN DE INVENTARIOS.</h2>
+                <p>Mnemesist es un programa de gestión de inventarios documentales. Está ideado para tener un control exhaustivo
+                    de qué documentos tenemos y cuáles no respecto a una colección definida.<br/>
+                    Permite registrar copias de ejemplares registrando su estado físico, el valor y detalles de su adquisición que ayuda a tomar
+                    decisiones respecto a la sustitución y/o conservación de ejemplares, manteniendo una colección viva.
+                </p>
+            </article>
+        </div>
+        <div class="row contenido-perfil">
+            <article class="col-lg-8">
+                <h2 class="titulo-portada">BIBLIOTECA ESPECIALIZADA.</h2>
+                <p>El presente catálogo que gestiona Mnemesist contiene fondos especializados en las disciplinas de mineralogía, gemología, 
+                    joyería, orfebrería y disciplinas afines.
+                    También contiene una importante colección de revistas especializadas, así como catálogos de subastas y joyas<br/>
+                </p>
+            </article>
+            <div class="col-lg-4">
+                <figure>
+                    <a>
+                        <img class="imagen-portada" src="{{ asset('assets/images/lalique.jpg') }}" />
+                    </a>
+                    <figcaption class="foto-pie">
+                        <span class="foto-texto">Joya de Lalique</span>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+    </main>
 {% endblock %}

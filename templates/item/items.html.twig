@@ -1,121 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Busqueda de items{% endblock %}
+{% block title %}Copia física{% endblock %}
 
 {% block body %}
     {% block content %}
 
-    <main class="principal principal-xs container">
-        <div class="row alto">
-        {{ include('includes/subnav.html.twig') }}
-        
-        <div class="col-8 col-8">
-    
-        <h2>Ejemplares disponibles</h2>
-    
-    {% if catalogo is defined %}
-        <p>{{ catalogo.title }}</p>
-        {% if app.user and app.user.role == "ROLE_ADMIN" %}
-            <a href="{{ path('register_item', {'id':catalogo.id}) }}" class="btn-show">Crear nuevo item a este libro</a>
-        {% endif %}
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Estado</th>
-                <th>Fecha adquisición</th>
-                <th>Precio compra</th>
-                <th>Precio venta</th>
-                <th>Imagen</th>
-                 <th>Origen</th>
-                 {% if(user!=null) %}
-                <th>editar</th>
-                <th>Eliminar</th>
-                 {% endif %}
-                
-            </tr>
-          
-        {% for item in catalogo.items %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.status }}</td>
-                <td>{{ item.purchaseDate|date('Y-m-d')}}</td>
-                <td>{{ item.purchaseValue }}</td>
-                <td>{{ item.saleValue }}</td>
-                <td><div id="image">
-                    {% if item.cover == ""%}
-                       <img class="image_ico" src={{ asset('images/item_images/no_disponible.png') }}>   
-                    {% else %}
-                       <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
-                    {% endif %}
-                </div>
-                </td>
-                <td>{{ item.origin }}</td>
-                {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                    <td><a href="{{ path('edit_item', {'id':item.id}) }}" class="btn-show">Editar</a></td>
-                    <td><a href="{{ path('delete_item', {'id':item.id}) }}" class="btn-show">Eliminar</a></td>
-                {% endif %}
-                 </tr>  
-             
-        {% endfor %}
-        
-        </table>
-        {% else %}<!--REVISTAS-->
-            <p>Número de revista</p>
-          
-        <p>{{ issue.number }}</p>
-        {% if app.user and app.user.role == "ROLE_ADMIN" %}
-            <a href="{{ path('new_issue_item', {'id':issue.id}) }}" class="btn-show">Crear nuevo item a este libro</a>
-        {% endif %}
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Estado</th>
-                <th>Fecha adquisición</th>
-                <th>Precio compra</th>
-                <th>Precio venta</th>
-                <th>Imagen</th>
-                <th>Origen</th>
-                <th>Notas</th>
-                {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                {% endif %}
-            </tr>
-          
-        {% for item in issue.items %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.status }}</td>
-                <td>{{ item.purchaseDate|date('Y-m-d')}}</td>
-                <td>{{ item.purchaseValue }}</td>
-                <td>{{ item.saleValue }}</td>
-                <td>
-                
-                    <div id="image">
-                        {% if item.cover == ""%}
-                           <img class="image_ico" src={{ asset('images/item_images/no_disponible.png') }}>   
-                        {% else %}
-                           <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
+        <main class="principal principal-xs container">
+            <div class="row alto">
+                {{ include('includes/subnav.html.twig') }}
+
+                <div class="col-10 col-10">
+
+                    <h2>Ejemplares disponibles</h2>
+
+                    {% if catalogo is defined %}
+                        <h3>{{ catalogo.title }}</h3>
+                        {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                            <a href="{{ path('register_item', {'id':catalogo.id}) }}" class="confirmar">Crear nuevo item a este libro</a>
                         {% endif %}
-                    </div>
-                   </td>
-                <td>{{ item.origin }}</td>
-                <td>{{ item.notes }}</td>
-                {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                    <td><a href="{{ path('edit_item', {'id':item.id}) }}" class="btn-show">Editar</a></td>
-                    <td><a href="{{ path('delete_item_issue', {'id':item.id}) }}" class="btn-show">Eliminar</a></td>
-                {% endif %}
-                 </tr>  
-             
-        {% endfor %}
-        
-        </table>
-    
-    {% endif %}
-    
-    
-</div>
-        </div>
- </main>
-{% endblock %}
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Estado</th>
+                                <th>Fecha adquisición</th>
+                                <th>Precio compra</th>
+                                <th>Precio venta</th>
+                                <th>Imagen</th>
+                                <th>Origen</th>
+                                   {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                    <th>Acciones</th>
+                                    {% endif %}
+
+                            </tr>
+
+                            {% for item in catalogo.items %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.purchaseDate|date('Y-m-d')}}</td>
+                                    <td>{{ item.purchaseValue }}</td>
+                                    <td>{{ item.saleValue }}</td>
+                                    <td><div id="image">
+                                            {% if item.cover == ""%}
+                                                <img class="image_ico" src={{ asset('assets/images/no_disponible.png') }}>   
+                                            {% else %}
+                                                <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>{{ item.origin }}</td>
+                                    {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                        <td class="buttons">
+                                            <a href="{{ path('edit_item', {'id':item.id}) }}" class="confirmar">Editar</a>
+                                        <a href="{{ path('delete_item', {'id':item.id}) }}" class="confirmar">Eliminar</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>  
+
+                            {% endfor %}
+
+                        </table>
+                    {% else %}<!--REVISTAS-->
+                        <h3>{{ magazine.title }}: Número {{ issue.number }}</h3>
+
+                        {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                            <a href="{{ path('register_issue_item', {'id':issue.id, 'id_catalogue':magazine.id}) }}" class="btn-show">Crear nuevo item a este número</a><!-- path('register_item', {'id':issue.id}) -->
+                        {% endif %}
+                        <table>
+                            <tr>
+                                <th>Id</th>
+                                <th>Estado</th>
+                                <th>Fecha adquisición</th>
+                                <th>Precio compra</th>
+                                <th>Precio venta</th>
+                                <th>Imagen</th>
+                                <th>Origen</th>
+                                <th>Notas</th>
+                                   {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                    <th>Acciones</th>
+                                    {% endif %}
+
+                            </tr>
+
+                            {% for item in issue.items %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td>{{ item.status }}</td>
+                                    <td>{{ item.purchaseDate|date('Y-m-d')}}</td>
+                                    <td>{{ item.purchaseValue }}</td>
+                                    <td>{{ item.saleValue }}</td>
+                                    <td>
+
+                                        <div id="image">
+                                            {% if item.cover == ""%}
+                                                <img class="image_ico" src={{ asset('assets/images/no_disponible.png') }}>   
+                                            {% else %}
+                                                <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>{{ item.origin }}</td>
+                                    <td>{{ item.notes }}</td>
+                                    {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                                        <td class="buttons">
+                                            <a href="{{ path('edit_item', {'id':item.id}) }}" class="btn-show">Editar</a>
+                                            <a href="{{ path('delete_item_issue', {'id':item.id}) }}" class="btn-show">Eliminar</a>
+                                        </td>
+                                    {% endif %}
+                                </tr>  
+
+                            {% endfor %}
+
+                        </table>
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </main>
+    {% endblock %}
 {% endblock %}

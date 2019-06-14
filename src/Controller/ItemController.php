@@ -41,17 +41,23 @@ class ItemController extends AbstractController {
         ]);
     }
 
-    public function display_items_issue(Issue $issue) {
+    public function display_items_issue(Request $request) {
         $user = null;
          if(isset($_SESSION['_sf2_attributes']['_security_main'])){
             $user = $_SESSION['_sf2_attributes']['_security_main'];
         }
-        
       
+        $id_issue = $request->get('id');
+        $id_catalogue = $request->get('id_catalogue');
+          $em = $this->getDoctrine()->getManager(); 
+        $catalogue = $em->getRepository(Catalogue::class)->find($id_catalogue);
         
+        $issue = $em->getRepository(Issue::class)->find($id_issue);
+      
         return $this->render('item/items.html.twig', [
                     'controller_name' => 'ItemController',
                     'issue' => $issue,
+            'magazine'=>$catalogue,
             'opcion'=>3,
             'user'=> $user
         ]);
@@ -108,12 +114,34 @@ class ItemController extends AbstractController {
         ]);
     }
 
-    public function register_issue_item(Issue $issue, Request $request) {
+    public function register_issue_item(Request $request) {
+        
+          $item = new Item();
+
+             $id_issue = $request->get('id');
+            $id_catalogue = $request->get('id_catalogue');
+             $em = $this->getDoctrine()->getManager(); 
+            $catalogue = $em->getRepository(Catalogue::class)->find($id_catalogue);
+            $issue = $em->getRepository(Issue::class)->find($id_issue);
+        $fileTmpPath = "";
+        if (isset($_FILES['item'])) {
+            $fileTmpPath = $_FILES['item']['tmp_name']['cover'];
+            $fileName = $_FILES['item']['name']['cover'];
+      
+            $images_field = "../public/images/item_images/";
+            $route = $images_field . $fileName;
+
+            if (move_uploaded_file($fileTmpPath, $route)) {
+                $message = 'Se ha cargado bien la imagen';
+            } else {
+                $message = 'No se ha podido cargar la imagen';
+            }
+
+        }
+        
         //Crear formulario
-        $item = new Item();
+      
         $form = $this->createForm(ItemType::class, $item);
-        //  $id_catalogue = $catalogue->getId();
-        //Rellenar el objeto con los datos del formulario
         $form->handleRequest($request);
 
         //Comprobar si se ha enviado
@@ -129,6 +157,7 @@ class ItemController extends AbstractController {
                         'form' => $form->createView(),
                         'create' => true,
                         'issue' => $issue,
+                'catalogue'=>$catalogue,
                 'opcion'=>3
             ]);
         }
@@ -136,6 +165,7 @@ class ItemController extends AbstractController {
                     'form' => $form->createView(),
                     'create' => true,
                     'issue' => $issue,
+              'catalogue'=>$catalogue,
             'opcion'=>3
         ]);
     }

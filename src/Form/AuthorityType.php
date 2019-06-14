@@ -11,7 +11,7 @@ class AuthorityType extends AbstractType {
     
     public function buildform(FormBuilderInterface $builder, array $options) {
         $builder->add('name', TextType::class, array(
-            'label' => 'nombre'
+            'label' => 'Nombre'
         ))
            ->add('typeauth', ChoiceType::class, array(
             'label' => 'Tipo',

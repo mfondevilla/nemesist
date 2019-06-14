@@ -91,6 +91,12 @@ class User implements UserInterface
      * @ORM\Column(name="age", type="integer", nullable=false)
      */
     private $age;
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="token", type="boolean",  options={"default":"0"}, nullable=false)
+     */
+    private $token;
 
     public function getId(): ?int
     {
@@ -189,6 +195,18 @@ class User implements UserInterface
     public function setEditingDate(\DateTimeInterface $editingDate): self
     {
         $this->editingDate = $editingDate;
+
+        return $this;
+    }
+    
+     public function getToken()
+    {
+              return $this->token;
+    }
+    
+     public function setToken(?bool $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

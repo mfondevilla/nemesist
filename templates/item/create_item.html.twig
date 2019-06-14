@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Busqueda de items por catálogo{% endblock %}
+{% block title %}Crear item{% endblock %}
 
 {% block body %}
 {% block content %}
  <main class="principal principal-xs container">
-        <div class="row alto">
+    <div class="row alto">
           
         {{ include('includes/subnav.html.twig') }}
         
        <div class="col-sm-6">
     
-  <h2>
-        {% if edit is defined %}
-            Editar item 
-        {% else %}
-           {% if catalogue is defined %}
-            Crear item {{ catalogue.title }}
-            {% else %}
-             Crear item {{ issue.title }}  
-        {% endif %}
-        {% endif %}
+   <h2>
+      {% if edit is defined %}
+          Editar item 
+      {% else %}
+          {% if issue is defined %}
+              Crear item {{ catalogue.title }}: Número {{ issue.number }} 
+          {% else %}
+              Crear item {{ catalogue.title }}
+          {% endif %}
+      {% endif %}
         
     </h2>
         <div id="form">
@@ -30,24 +30,26 @@
         </div>
         <br/>
           
-    {% if item is defined %}
-        
-         <div id="image">
-                        {% if item.cover == ""%}
-                           <img class="image_ico" src={{ asset('images/item_images/no_disponible.png') }}>   
-                        {% else %}
-                           <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
-                        {% endif %}
-                    </div>
-                    
-       {% else %}
-        
-    {% endif %}              
+        {% if item is defined %}
+
+            <div id="image">
+                {% if item.cover == ""%}
+                    <img class="image_ico" src={{ asset('assets/images/no_disponible.png') }}>   
+                {% else %}
+                    <img class="image_ico" src={{ asset('images/item_images/' ~ item.cover) }}>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <div id="image">
+               <img class="image_ico" src={{ asset('assets/images/no_disponible.png') }}>   
+            </div>
+        {% endif %}              
 
    
        
-</div>
         </div>
+   </div>
  </main>
 {% endblock %}
 {% endblock %}

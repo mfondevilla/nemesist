@@ -1,14 +1,22 @@
 {% extends 'base.html.twig' %}
-{% block title %}Busqueda de items por catálogo{% endblock %}
+{% block title %}Búsqueda de revistas{% endblock %}
 
 {% block body %}
 {% block content %}
     <main class="principal principal-xs container">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item active">Búsqueda</li>
+                </ol>
+            </nav>
+        </div>
         <div class="row alto">
             {{ include('includes/subnav.html.twig') }}
             <div class="col-10">
 
-                <h2>Busqueda de números de revista por Revista</h2>
+                <h2>Búsqueda de números de revista por Revista</h2>
                 <form action="{{ path('search_issue') }}" method="POST">
                     <label for="search">Buscar: </label>
                     <input type="text" id="search" name="search" value ="" />
@@ -31,8 +39,8 @@
                                 <td>{{ catalogue.language }}</td>
                                 <td>{{ catalogue.periodicity }}</td>
                                 <td class="buttons">
-                                    <a href="{{ path('search_issues', {'id':catalogue.id}) }}" class="btn-show">Ver Número</a>
-                                    <a href="{{ path('issue_ini', {'id':catalogue.id}) }}" class="btn-show">Ver Detalle</a>
+                                    <a href="{{ path('search_issues', {'id':catalogue.id}) }}" class="confirmar">Ver Números</a>
+                                    <a href="{{ path('issue_ini', {'id':catalogue.id}) }}" class="confirmar">Ver Revista</a>
                                 </td>
                             </tr>
                         {% endfor %}
