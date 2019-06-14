@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Busqueda de autores{% endblock %}
+{% block title %}Búsqueda de autores{% endblock %}
 
 {% block body %}
     <main class="principal principal-xs container">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Búsqueda</li>
+                </ol>
+            </nav>
+        </div>
         <div class="row alto">
             {{ include('includes/subnav.html.twig') }}
             <div class="col-10">
@@ -35,7 +43,7 @@
                                 <td>{{ author.typeauth }}</td>
                                 <td>{{ author.catalogue|length }}</td>
                                 <td class="buttons">
-                                    <a href="{{ path('detail_author',{'id':author.id}) }}" class="btn-show">Ver Autor</a>
+                                    <a href="{{ path('detail_author',{'id':author.id}) }}" class="confirmar">Ver Autor</a>
                                 </td>
                             </tr>
                         {% endfor %}

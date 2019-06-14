@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
-{% block title %}Busqueda de items por catálogo{% endblock %}
+{% block title %}Búsqueda de items por catálogo{% endblock %}
 
 {% block body %}
     {% block content %}
         <main class="principal principal-xs container">
             <div class="row alto">
-                <div class="col-8">
+                <div class="col-10 offset-md-1">
                     {% if catalogues|length > 0 %}
                         <table>
                             <tr>
                                 <th>Titulo</th>
                                 <th>Subtitulo</th>
                                 <th>Idioma</th>
-                                <th>Periodicidad</th>
+                                <th>Acciones</th>
                             </tr>
                             {% for catalogue in catalogues %} 
                                 
@@ -20,10 +20,20 @@
                                     <td>{{ catalogue.title }}</td>
                                     <td>{{ catalogue.subtitle }}</td>
                                     <td>{{ catalogue.language }}</td>
-                                    <td>{{ catalogue.periodicity }}</td>
                                     <td class="buttons">
-                                        <a href="{{ path('display_issues', {'id':catalogue.id}) }}" class="btn-show">Ver Números</a>
-                                        <a href="{{ path('issue_ini', {'id':catalogue.id}) }}" class="btn-show">Ver detalles revista</a>
+                                        {% if catalogue.periodicity != "" and catalogue.periodicity != null %}
+                                            {% set number_issues = catalogue.issues|length %}
+                                            <a href="{{ path('issue_ini', {'id':catalogue.id}) }}" class="btn-show">Ver Revista</a>
+                                            {% if number_issues > 0 %}
+                                                <a href="{{ path('search_issues', {'id':catalogue.id}) }}" class="btn-show">Ver Números({{ number_issues }})</a>
+                                            {% endif %}
+                                        {% else %}
+                                            {% set number_items = catalogue.items|length %}
+                                            <a href="{{ path('book_details', {'id':catalogue.id}) }}" class="btn-show">Ver Libro</a>
+                                            {% if number_items > 0 %}
+                                                <a href="{{ path('search_items', {'id':catalogue.id}) }}" class="btn-show">Ver Items({{ number_items }})</a>
+                                            {% endif %}
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

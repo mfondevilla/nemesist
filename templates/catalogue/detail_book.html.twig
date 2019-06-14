@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Controlador catalogue{% endblock %}
+{% block title %}
+{% if(catalogue.periodicity != "") %}
+    Libro
+    {% else %}
+        Revista
+        {% endif %}
+{% endblock %}
 
 {% block body %}
     <main class="principal_producto principal-xs container">
@@ -8,7 +14,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="/">Home</a></li>
-                  <li class="breadcrumb-item"><a href="/search_catalogue">Busqueda</a></li>
+                  <li class="breadcrumb-item"><a href="/search_catalogue">Búsqueda</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Libro</li>
                 </ol>
             </nav>
@@ -20,34 +26,59 @@
             <p class="h4 col-sm-12">{{ catalogue.subtitle }}</p>
         </div>
         <div class="row">
-            <section class="col-sm-9">
-                <div class="producto row">
+            <section class="producto col-sm-9">
+                <div class="row">
                     <div id="contenido" class="col-xs-12 col-sm-8 col-md-6">
-                        <img id="producto" class="col-sm-12 img_principal" src="{{ asset('images/item_images/no_disponible.png') }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
-                    </div>
+                        {% if(catalogue.cover != null) %}
+                             {% set cover = catalogue.cover %}
+                        {% else %}
+                          {#  {% set cover = "" %}
+                            {% for item in catalogue.items %}
+                                {% if item.cover != "" %}
+                                    {% set cover = item.cover %}
+                                {% endif %}
+                            {% endfor %} #}
+                          {% set cover = "" %}
+                        {% endif %}
+                        
+                        
+                        {% if cover == ""%}
+                                 <img id="producto" class="col-sm-12 img_principal" src="{{ asset('assets/images/no_disponible.png') }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
+                        {% else %}
+                             <img id="producto" class="col-sm-12 img_principal" src="{{  asset('images/item_images/' ~ cover)  }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
+                        {% endif %}
+                     </div>
                     <div class="hidden-xs col-sm-4">
-                        <div class="opinion">
-                            <p class="h4"><img class="estrellas" src="{{ asset('images/item_images/5estrellas.png') }}" alt="">  3 Opiniones</p>
-                            <p class="h6">Escribir una opinión</p>
-                        </div>
                         <div class="">
-                            <p>Traducido:  {{ catalogue.translateTitle }}</p>
-                            <p>Edición: {{ catalogue.edition }}</p>
+                             {% if(catalogue.subtitle != "" or catalogue.subtitle != null ) %}
+                                 <p>Subtítulo:  {{ catalogue.subtitle }}</p>
+                            {% endif %}
+                            {% if(catalogue.translateTitle != "" or catalogue.translateTitle != null ) %}
+                                 <p>Traducido:  {{ catalogue.translateTitle }}</p>
+                            {% endif %}
+                           
+                            <p>Edición: {{ catalogue.edition }}, {{ catalogue.placePublication}}</p>
                             <p>Año de Publicación: {{ catalogue.yearPublication }}</p>
                             <p>Tipo de Documento: {{ catalogue.documentType }}</p>
+                            <p>Subtipo de Documento: {{ catalogue.subdocType }}</p>
                             <p>Idioma: {{ catalogue.language }}</p>
+                            {% if(catalogue.pages != "" or catalogue.cms != ""  or catalogue.physicalDescription or "" ) %}
+                                <p>Descripción física: {{ catalogue.pages }}, {{ catalogue.cms }}, {{ catalogue.physicalDescription }}</p>
+                            {% else %}
+                                <p>Descripción física: </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 {% if app.user and app.user.role == "ROLE_ADMIN" %}
                     <div class="row">
-                        <a class="btn btn-primary" href="{{ path('edit_catalogue', {'id':catalogue.id}) }}">Editar</a>
-                        <a class="btn btn-danger"  href="{{ path('delete_catalogue', {'id':catalogue.id}) }}">Borrar</a> 
+                        <a class="espacio btn btn-primary" href="{{ path('edit_catalogue', {'id':catalogue.id}) }}">Editar</a>
+                        <a class="espacio btn btn-danger"  href="{{ path('delete_catalogue', {'id':catalogue.id}) }}">Borrar</a> 
                     </div>
                 {% endif %}
             </section>
             <section class="venta venta-lg centrado col-xs-offset-2 col-sm-offset-0 col-xs-8 col-sm-3">
-                <p class="h4">Autores: </p>
+                
                 
                 {% set authors = [] %}
                 {% set publishers = [] %}
@@ -58,13 +89,13 @@
                         {% set publishers = publishers | merge({ name: author.name}) %}
                     {% endif %}
                 {% endfor %}
-         
                 
+                      <p class="h4">Editorial: </p>
                 {% if publishers|length > 0 %}
-                    <label>Editorial</label>
-                    <input type="text" value ="{{ publishers.name }}" readonly/>
+                   
+                     <p class="h6">{{ publishers.name }}</p>
                 {% endif %}
-                
+                    <p class="h4">Autores: </p>
                 {% if authors|length > 0 %}
                     {% for author_name in authors %}
                         <p class="h6">{{ author_name }}</p>
@@ -75,4 +106,3 @@
         </div>
     </main>
 {% endblock %}
-

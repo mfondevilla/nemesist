@@ -16,7 +16,7 @@ class IssueController extends AbstractController
 
     public function issue_ini(Catalogue $catalogue)
     {
-        return $this->render('issue/index.html.twig', [
+        return $this->render('catalogue/detail_magazine.html.twig', [
             'controller_name' => 'IssueController',
             'catalogue' => $catalogue,
             'opcion' => 3
@@ -28,10 +28,10 @@ class IssueController extends AbstractController
         $paginacion = "";
         $message = "";
         $catalogues = "";
-
-        unset($_SESSION['pag_issue']);
-        unset($_SESSION['pag_numero']);
-        
+        if(isset($_SESSION['pag_issue'])){
+            unset($_SESSION['pag_issue']);
+            unset($_SESSION['pag_numero']);
+        }
         return $this->render('issue/search_issues.html.twig', [
                 'paginacion' => $paginacion,
                 'catalogues' => $catalogues,
@@ -47,7 +47,15 @@ class IssueController extends AbstractController
         $message = "";
         if ($request->isMethod('post'))
         {
-            $_SESSION['pag_issue'] = $request->get('search');
+            
+            if(isset($_SESSION)){
+                $_SESSION['pag_issue'] = $request->get('search');
+            } else {
+                session_start();
+                $_SESSION['pag_issue'] = $request->get('search');
+            }
+            
+           
             $paginacion = $dataService->ReturnDataMagazine($request);
             $catalogues = $paginacion->getItems();
         }else {
@@ -99,6 +107,20 @@ class IssueController extends AbstractController
     {
           //Crear formulario
         $issue = new Issue();
+         $fileTmpPath = "";
+        if (isset($_FILES['issue'])) {
+            $fileTmpPath = $_FILES['issue']['tmp_name']['cover'];
+            $fileName = $_FILES['issue']['name']['cover'];
+      
+            $images_field = "../public/images/item_images/";
+            $route = $images_field . $fileName;
+
+            if (move_uploaded_file($fileTmpPath, $route)) {
+                $message = 'Se ha cargado bien la imagen';
+            } else {
+                $message = 'No se ha podido cargar la imagen';
+            }
+        }
         $form = $this->createForm(IssueType::class, $issue);
          //$id_catalogue = $catalogue->getId();
         //Rellenar el objeto con los datos del formulario
@@ -107,20 +129,23 @@ class IssueController extends AbstractController
         //Comprobar si se ha enviado
         if ($form->isSubmitted() && $form->isValid()) {
             $issue->setCatalogue($catalogue);
+            if (isset($_FILES['issue'])) {
+                $issue->setCover($fileName);
+            }
             //Guardamos el item
             $em = $this->getDoctrine()->getManager();
             $em->persist($issue);
             $em->flush();
             
             
-               return $this->render('issue/create_issue.html.twig', [
-            'form' => $form->createView(),
-             'create' => true,
-                      'catalogue'=> $catalogue,
-                   'opcion' =>3
+               return $this->render('catalogue/detail_magazine.html.twig', [
+                        'form' => $form->createView(),
+                        'create' => true,
+                        'catalogue' => $catalogue,
+                        'opcion' => 3
             ]);
         }
-             return $this->render('issue/create_issue.html.twig', [
+             return $this->render('catalogue/detail_magazine.html.twig', [
             'form' => $form->createView(),
              'create' => true,
                  'catalogue'=> $catalogue,
@@ -131,6 +156,21 @@ class IssueController extends AbstractController
     
       public function edit_issue(Request $request, Issue $issue)
     {
+           $fileTmpPath = "";
+        if (isset($_FILES['issue'])) {
+            $fileTmpPath = $_FILES['issue']['tmp_name']['cover'];
+            $fileName = $_FILES['issue']['name']['cover'];
+      
+            $images_field = "../public/images/item_images/";
+            $route = $images_field . $fileName;
+
+            if (move_uploaded_file($fileTmpPath, $route)) {
+                $message = 'Se ha cargado bien la imagen';
+            } else {
+                $message = 'No se ha podido cargar la imagen';
+            }
+
+        }
         $form = $this->createForm(IssueType::class, $issue);
         $form->handleRequest($request);
         //Rellenar el objeto con los datos del formulario
@@ -138,7 +178,9 @@ class IssueController extends AbstractController
         
         //Comprobar si se ha enviado
         if ($form->isSubmitted() && $form->isValid()) {
-          
+           if (isset($_FILES['issue'])) {
+                $issue->setCover($fileName);
+            }
             //Guardamos el usuario
             $em = $this->getDoctrine()->getManager();
             $em->persist($issue);
@@ -158,30 +200,33 @@ class IssueController extends AbstractController
         ]);
     }
     
-    public function delete_issue(Issue $issue)
+    public function delete_issue(Request $request)
     {
-        
+           $id_catalogue = $request->get('id_catalogue');
+            $id_issue = $request->get('id');
             $em = $this->getDoctrine()->getManager();
+            $issue = $em->getRepository(Issue::class)->find($id_issue);
+             $catalogue = $em->getRepository(Catalogue::class)->find($id_catalogue);
+        
+          
             $em->remove($issue);
             $em->flush();
         
-        return $this->render('home/index.html.twig');
+        return $this->render('catalogue/detail_magazine.html.twig',[
+            'catalogue' => $catalogue,
+            'opcion' =>3
+        ]);
     
     }
     
     public function detail_issue(Request $request)
     {
-        $base_url =  $request->getPathInfo();
-         
-        $base = explode("/",$base_url);
-        $indices = $base[2];
-        $array_indices = explode("-", $indices);
-        $issue_indice = $array_indices[0];
-        $catalogue_indice = $array_indices[1];
-        $em = $this->getDoctrine()->getManager(); 
-        $issue = $em->getRepository(Issue::class)->find($issue_indice);
-        $catalogue = $em->getRepository(Catalogue::class)->find($catalogue_indice);
-         
+        $id_catalogue = $request->get('id_catalogue');
+        $id_issue = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $issue = $em->getRepository(Issue::class)->find($id_issue);
+        $catalogue = $em->getRepository(Catalogue::class)->find($id_catalogue);
+
 
         return $this->render('issue/detail_issue.html.twig', [
             'issue' => $issue,

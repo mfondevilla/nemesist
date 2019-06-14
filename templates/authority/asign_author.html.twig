@@ -35,7 +35,11 @@
                                 <td>{{ author.typeauth }}</td>
                                 <td>{{ author.catalogue|length }}</td>
                                 <td class="buttons">
-                                    <a href="{{ path('asign_autor',{'id':author.id}) }}" class="btn-show">Asignar Autor</a>
+                                    {% if author.typeauth == "Editoriales" %}
+                                        <a href="{{ path('asign_autor',{'id':author.id}) }}" class="btn-show">Asignar Editorial</a>
+                                    {% else %}
+                                        <a href="{{ path('asign_autor',{'id':author.id}) }}" class="btn-show">Asignar Autor</a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

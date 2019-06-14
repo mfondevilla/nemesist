@@ -365,10 +365,7 @@ table td {
 .producto {
     border: 1px solid gray;
     padding: 0.8em;
-}
-
-.principal_producto {
-    margin-bottom: 20px;
+    height: 420px;
 }
 
 .bloque {
@@ -407,13 +404,8 @@ table td {
 #contenido {
     border: 4px solid #000;
     border-radius: 10px;
-    margin-bottom: 6em;
-    margin-left: 10px;
+    margin-bottom: 7em;
     box-shadow: 1px 1px 5px rgba(50, 50, 50 0.5);
-}
-
-.espacio {
-    margin-left: 20px;
 }
 
 .finan {
@@ -559,30 +551,6 @@ table td {
     color: #004254;
     background: #dbc838;
 }
-/**************** PORTADA *****************/
-
-.contenido-perfil {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid black;
-}
-
-.imagen-portada {
-    height: 220px;
-    width: 350px;
-}
-
-.foto-pie {
-    font-weight: 100;
-    font-size: 0.750em;
-    padding: 0.313rem 0 0;
-    line-height: 110%;
-}
-
-.titulo-portada {
-    font-family: "Georgia","Times New Roman";
-    font-size: 25px;
-}
 
 /***************** FOOTER *****************/
 
@@ -647,13 +615,6 @@ table td {
      width: 62px;
 }
 
-.bloque {
-    display: inline-block;
-}
-
-.margenes {
-    margin: 10px 5px 20px 0px;
-}
 
 
 

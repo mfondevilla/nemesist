@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Revista{% endblock %}
+
+{% block body %}
+    <main class="principal principal-xs container">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/">Home</a></li>
+                  <li class="breadcrumb-item"><a href="/search_catalogue">Búsqueda</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Revista</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <p class="h3 col-sm-12">{{ catalogue.title }}</p>
+            </br>
+            <p class="h4 col-sm-12">{{ catalogue.subtitle }}</p>
+        </div>
+        <div class="row">
+            <section class="producto col-sm-9">
+                <div class="row">
+                    <div id="contenido" class="col-xs-12 col-sm-8 col-md-6">
+                        {% if(catalogue.cover != null) %}
+                            {% set cover = catalogue.cover %}
+                        {% else %}
+                            {% set cover = "" %}
+                        {% endif %}
+                        
+                        
+                        {% if cover == ""%}
+                            <img id="producto" class="col-sm-12 img_principal" src="{{ asset('assets/images/no_disponible.png') }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
+                        {% else %}
+                            <img id="producto" class="col-sm-12 img_principal" src="{{  asset('images/item_images/' ~ cover)  }}" alt="ordenador con zoom" data-big="img/pc1-grande.jpg">
+                        {% endif %}
+                    </div>
+                    <div class="hidden-xs col-sm-5">
+                        <div class="">
+                            <p>Título traducido: <span class="font-weight-bold">{{ catalogue.translateTitle }}</span></p>
+                            <p>Edición: <span class="font-weight-bold">{{ catalogue.edition }}</span></p>
+                            <p>Año de Publicación: <span class="font-weight-bold">{{ catalogue.yearPublication }}</span></p>
+                            <p>Tipo de Documento: <span class="font-weight-bold">{{ catalogue.documentType }}</span></span></p>
+                            <p>Idioma: <span class="font-weight-bold">{{ catalogue.language }}</span></p>
+                            {% set number_issues = catalogue.issues|length  %}
+                            <p>Números: <span class="font-weight-bold">{{ number_issues }}</span></p>
+                        </div>
+                    </div>
+                </div>
+                {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                    <div class="row">
+                        <a class="espacio btn btn-primary" href="{{ path('edit_magazine', {'id':catalogue.id}) }}">Editar</a>
+                        <a class="espacio btn btn-danger"  href="{{ path('delete_catalogue', {'id':catalogue.id}) }}">Borrar</a> 
+                    </div>
+                {% endif %}
+            </section>
+            <section class="venta venta-lg centrado col-xs-offset-2 col-sm-offset-0 col-xs-8 col-sm-3">
+                
+                
+                {% set authors = [] %}
+                {% set publishers = [] %}
+                {% for author in catalogue.authority %}
+                    {% if author.typeauth != 'Editoriales' %}
+                        {% set authors = authors | merge({ name: author.name}) %}
+                    {% else %}
+                        {% set publishers = publishers | merge({ name: author.name}) %}
+                    {% endif %}
+                {% endfor %}
+         
+                {% if publishers|length > 0 %}
+                     <p class="h4">Editorial: </p>
+                     <p class="h6">{{ publishers.name }}</p>
+                {% endif %}
+                    <p class="h4">Autores: </p>
+                {% if authors|length > 0 %}
+                    {% for author_name in authors %}
+                        <p class="h6">{{ author_name }}</p>
+                    {% endfor %}
+                {% endif %}
+                
+            </section>
+        </div>
+    </main>
+{% endblock %}

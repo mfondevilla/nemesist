@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}¡Bienvenido!{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('assets/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
             <link href="{{ asset('assets/css/style.css') }}" type="text/css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 
     <body>
         <div class="login">
-
+{{ dump(last_username) }}
             <section id="section1" class="col-sm-12 col-md-12 col-lg-12">
                 
             </section>

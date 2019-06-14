@@ -1,80 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Busqueda de números{% endblock %}
+{% block title %}Búsqueda de números{% endblock %}
 
 {% block body %}
-{% block content %}
+    {% block content %}
 
-    <main class="principal principal-xs container">
-        <div class="row alto">
-            {{ include('includes/subnav.html.twig') }}
-            <div class="col-10">
-                <h2>Números</h2>
-                {% if app.user and app.user.role == "ROLE_ADMIN" %}
-                    <a href="{{ path('new_issue', {'id':catalogo.id}) }}" class="btn-show">Añadir número</a>
-                {% endif %}
-                {% if catalogo is defined %}
-                    <p>{{ catalogo.title }}</p>
-                    <table>
-                        <tr>
-                            <th>Id</th>
-                            <th>Título</th>
-                            <th>Volumen</th>
-                            <th>Fecha</th>
-                            <th>Número</th>
-                            <th>Imagen</th>
-                             <th>Items</th>
-                            <th>Acciones</th>
-                        </tr>
+        <main class="principal principal-xs container">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/search_issue">Búsqueda</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Números</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row alto">
+                {{ include('includes/subnav.html.twig') }}
+                <div class="col-10">
+                    <h2>Números</h2>
 
-                        {% for issue in issues %}
+                    {% if catalogo is defined %}
+                        <h4 class="bloque margenes">{{ catalogo.title }}</h4>
+                    {% if app.user and app.user.role == "ROLE_ADMIN" %}
+                        <div class="bloque buttons">
+                            <a href="{{ path('new_issue', {'id':catalogo.id}) }}" class="confirmar">Añadir número</a>
+                        </div>
+                    {% endif %}
+                     
+                        <table>
                             <tr>
-                                <td>{{ issue.id }}</td>
-                                <td>{{ issue.title }}</td>
-                                <td>{{ issue.volume }}</td>
-                                <td>{{ issue.year ~ '-' ~  issue.month  ~ '-' ~ issue.day }}</td>
-                                <td>{{ issue.number }}</td>
-                                <td>
-                                    {% set cover = "" %}
-                                    {% for item in issue.items %}
-                                        {% if item.cover != "" %}
-                                            {% set cover = item.cover %}
-                                        {% endif %}
+                                <th>Número</th>
+                                <th>Título</th>
+                                <th>Volumen</th>
+                                <th>Fecha</th>
+                                <th>Imagen</th>
+                                <th>Items</th>
+                                <th>Acciones</th>
+                            </tr>
 
-                                    {% endfor %}
+                            {% for issue in issues %}
+                                <tr>
+                                    <td>{{ issue.number }}</td>
+                                    <td>{{ issue.title }}</td>
+                                    <td>{{ issue.volume }}</td>
+                                    <td>{{ issue.year ~ '-' ~  issue.month  ~ '-' ~ issue.day }}</td>
+
+                                    <td>
+                                        {% set cover = issue.cover %}
+
                                         <div id="image">
                                             {% if cover == ""%}
-                                               <img class="image_ico"  src={{ asset('images/item_images/no_disponible.png') }}>   
+                                                <img class="image_ico"  src={{ asset('assets/images/no_disponible.png') }}>   
                                             {% else %}
-                                               <img class="image_ico"  src={{ asset('images/item_images/' ~ cover) }}>
+                                                <img class="image_ico"  src={{ asset('images/item_images/' ~ cover) }}>
                                             {% endif %}
                                         </div>
 
-                                </td>
-                                <td>
-                                    {% set number_items = issue.items|length %}
-                                    {{ number_items }}
-                                </td>
-                                <td class="buttons">
-                                    <a href="{{ path('detail_issue', {'id':issue.id,'id_catalogue':catalogo.id}) }}" class="btn-show">Ver número</a>
-                                    {% if number_items > 0 %}
-                                        <a href="{{ path('item_issues', {'id':issue.id}) }}" class="btn-show">Ver items</a>   
-                                    {% endif %}
-                                    {% if app.user and app.user.role == "ROLE_ADMIN"%}
-                                        <a href="{{ path('register_issue_item', {'id':issue.id}) }}" class="btn-show">Nuevo item</a>
-                                    {% endif %}
-                                </td>
-                            </tr>  
-                        {% endfor %}
-                    </table>
-                    <div class="col-8 offset-md-2">
-                        <div class="paginacion navigation">
-                            {{ knp_pagination_render(paginacion) }}
+                                    </td>
+                                    <td>
+                                        {% set number_items = issue.items|length %}
+                                        {{ number_items }}
+                                    </td>
+                                    <td class="buttons">
+                                        <a href="{{ path('detail_issue', {'id':issue.id,'id_catalogue':catalogo.id}) }}" class="confirmar">Ver número</a>
+                                        {% if number_items > 0 %}
+                                            <a href="{{ path('item_issues', {'id':issue.id, 'id_catalogue':catalogo.id}) }}" class="confirmar">Ver items</a>   
+                                        {% else  %}
+                                            {% if app.user and app.user.role == "ROLE_ADMIN"%}
+                                                <a href="{{ path('register_issue_item', {'id':issue.id, 'id_catalogue':catalogo.id}) }}" class="confirmar">Nuevo item</a>
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>  
+                            {% endfor %}
+                        </table>
+                        <div class="col-8 offset-md-2">
+                            <div class="paginacion navigation">
+                                {{ knp_pagination_render(paginacion) }}
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
-        </div>
-    </main>
-{% endblock %}
+        </main>
+    {% endblock %}
 {% endblock %}

@@ -1,14 +1,22 @@
 #*********************USER********************************#
+logueo:
+    path: /bienvenido
+    controller: App\Controller\UserController::logueo
+
 inicio:
     path: /
-    controller: App\Controller\UserController::index
+    controller: App\Controller\UserController::inicio
     
 login:
     path: /login
     controller: App\Controller\UserController::login
     
 logout:
-    path: /logout
+    path: /logout    
+    
+unsubscribe:
+    path: /baja
+    controller: App\Controller\UserController::unsubscribe
     
 map:
     path: /map
@@ -26,9 +34,9 @@ edit_profile:
     path: /edit_profile
     controller: App\Controller\UserController::edit_profile
     
-delete_profile:
-    path: /delete_perfil
-    controller: App\Controller\UserController::delete_profile
+#delete_profile:
+#    path: /delete_perfil
+#    controller: App\Controller\UserController::delete_profile
 
 register_user:
     path: /register_user
@@ -45,6 +53,10 @@ register_book:
     path: /register_book
     controller: App\Controller\CatalogueController::register_book
     
+edit_magazine:
+    path: /editar_revista/{id}
+    controller: App\Controller\CatalogueController::edit_magazine
+    
 register_magazine:
     path: /register_magazine
     controller: App\Controller\CatalogueController::register_magazine
@@ -60,6 +72,7 @@ edit_catalogue:
 search_catalogue:
     path: /search_catalogue
     controller: App\Controller\CatalogueController::search_catalogue
+
       
 search_catalogue_ini:
     path: /search_catalogue_ini
@@ -156,7 +169,7 @@ edit_issue:
     controller: App\Controller\IssueController::edit_issue
     
 delete_issue:
-    path: /delete_issue/{id}
+    path: /delete_issue/{id}-{id_catalogue}
     controller: App\Controller\IssueController::delete_issue
     
 issue_ini:
@@ -171,7 +184,7 @@ search_items:
     controller: App\Controller\ItemController::search_items
 
 item_issues:
-    path: /item_issues/{id}
+    path: /item_issues/{id}-{id_catalogue}
     controller: App\Controller\ItemController::display_items_issue
 
 register_item:
@@ -179,7 +192,7 @@ register_item:
     controller: App\Controller\ItemController::register_item
     
 register_issue_item:
-    path: /register_issue_item/{id}
+    path: /register_issue_item/{id}-{id_catalogue}
     controller: App\Controller\ItemController::register_issue_item
     
 edit_item:
@@ -193,3 +206,7 @@ delete_item:
 delete_item_issue:
     path: /eliminar_item_issue/{id}
     controller: App\Controller\ItemController::delete_item_issue
+   
+contacto:
+    path: /contacto
+    controller: App\Controller\UserController::redirect_contacto

@@ -56,11 +56,11 @@
                 {% if app.user %}
                     <div class="cerrar dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          desplegable
+                          Sesión
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="{{ path('logout') }}">Cerrar Sesión</a>
-                          <a class="dropdown-item" href="#">Dar de Baja</a>
+                          <a class="dropdown-item" href="{{ path('unsubscribe') }}">Dar de Baja</a>
                         </div>
                     </div>
                     

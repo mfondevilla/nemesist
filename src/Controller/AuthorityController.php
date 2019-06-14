@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\AuthorityRepository;
+use App\Repository\CatalogueRepository;
 use App\Service\DataService;
 use App\Form\AuthorityType;
 use App\Entity\Authority;
@@ -32,11 +33,14 @@ class AuthorityController extends AbstractController {
     public function buscar_autor_ini(Catalogue $catalogo) {
         
         $_SESSION['catalogue'] = $catalogo;
-        foreach ($catalogo->getAuthority() as $author) {
-            if ($autor->getId() == $author->getId()) {
-                $encontrado = true;
-            }
-        }
+        
+        
+//        foreach ($catalogo->getAuthority() as $author) {
+//                        if ($autor->getId() == $author->getId()) {
+//                            $encontrado = true;
+//                        }
+//                    }
+        
         return $this->render('authority/asign_author.html.twig', [
                     'authorities' => null,
                     'message' => "",
@@ -45,58 +49,64 @@ class AuthorityController extends AbstractController {
         ]);
     }
     
-    public function buscar(Request $request, DataService $dataService) {
+    public function buscar(Request $request, DataService $dataService, CatalogueRepository $catalogueRepository) {
+        $paginacion= null;
+        $authorities = null;
+        $message = "";
+        $autores_filtro = [];
+        $catalogo = $catalogueRepository->findById($_SESSION['catalogue']->getId());
+        
         if ($request->isMethod('post')) {
-            //Cargamos el repositorio
+            $_SESSION['pag_asign'] = $request->get('search');
             $paginacion = $dataService->ReturnDataAuthority($request);
-            $autores = $paginacion->getItems();
-            $message = "";
-            $autores_filtro = [];
+            $authorities = $paginacion->getItems();
             //$_SESSION['catalogue'] = $catalogo;
-            $catalogo = $_SESSION['catalogue'];
-            if (!$autores) {
-                $message = "No se ha encontrado ningun resultado con: " . $name;
-            } else {//$autores && isset($_SESSION['authors'])
-                foreach ($autores as $autor) {
-                    $encontrado = false;
-                    foreach ($catalogo->getAuthority() as $author) {
-                        if ($autor->getId() == $author->getId()) {
-                            $encontrado = true;
-                        }
+            if (!$authorities) {
+                $message = "No se ha encontrado ningun resultado con: " . $request->get('search');
+            } 
+            
+        } else {
+            if (isset($_SESSION['pag_asign'])) 
+            {
+                $request->attributes->set('search',$_SESSION['pag_asign']);
+                $paginacion = $dataService->ReturnDataAuthority($request);
+                $authorities = $paginacion->getItems();
+            }
+        }
+        
+        if ($request->isMethod('post') || isset($_SESSION['pag_asign'])) {
+            foreach ($authorities as $autor) {
+                $encontrado = false;
+                foreach ($catalogo->getAuthority() as $author) {
+                    if ($autor->getId() == $author->getId()) {
+                        $encontrado = true;
                     }
-                    if (!$encontrado) {
-                        $autores_filtro[] = $autor;
-                    }
+                }
+                if (!$encontrado) {
+                    $autores_filtro[] = $autor;
                 }
             }
             if (isset($autores_filtro)) {
-                $autores = $autores_filtro;
+                $authorities = $autores_filtro;
             }
-
-            return $this->render('authority/asign_author.html.twig', [
-                'paginacion' => $paginacion,
-                'authorities' => $autores,
-                'message' => $message,
-                'catalogo' => $catalogo,
-                'opcion' => 3
-            ]);
         }
-
+        
+        
         return $this->render('authority/asign_author.html.twig', [
-                    'authorities' => null,
-                    'message' => "",
-                    'catalogo' => $catalogo,
-                    'opcion' => 3
+                'paginacion' => $paginacion,
+                'authorities' => $authorities,
+                'message' => $message,
+                'opcion' => 3
         ]);
     }
 
-    //en el caso de las relaciones si pasamos el objeto por parámetro al hacer persist lo guardará como un nuevo
-//    registro en la base de datos. Debemos recuperar el objeto del propio repositorio ya que al proceder de doctrine
-//           detecta que viene de un registro de la base de datos y entonces no persistira/duplicará el objeto
-//            guardando únicamente la relación (en el caso de querer registrar una relación entre objetos existentes en la bdd)
-    //en el caso de que existiera una de las entidades no hace falta recuperar los objetos del repositorio. Se hace un add
-    // del objeto que existe (al que no existe) y al persistir se persiste el que no existe y la relación correspondiente
-    public function asign_autor(Authority $author) {
+        //en el caso de las relaciones si pasamos el objeto por parámetro al hacer persist lo guardará como un nuevo
+    //    registro en la base de datos. Debemos recuperar el objeto del propio repositorio ya que al proceder de doctrine
+    //           detecta que viene de un registro de la base de datos y entonces no persistira/duplicará el objeto
+    //            guardando únicamente la relación (en el caso de querer registrar una relación entre objetos existentes en la bdd)
+        //en el caso de que existiera una de las entidades no hace falta recuperar los objetos del repositorio. Se hace un add
+        // del objeto que existe (al que no existe) y al persistir se persiste el que no existe y la relación correspondiente
+     public function asign_autor(Authority $author) {
         $catalogue = null;
         if (!$author) {
             return $this->redirectToRoute('search_author');
@@ -260,9 +270,9 @@ class AuthorityController extends AbstractController {
         $em = $this->getDoctrine()->getManager(); 
         $catalogue = $em->getRepository(Catalogue::class)->find($id_catalogue);
         if($catalogue->getPeriodicity()=="" || $catalogue->getPeriodicity() == null){
-               return $this->render('catalogue/book_detail.html.twig', [
+               return $this->render('catalogue/detail_book.html.twig', [
                     'edit' => true,
-                    'catalogues' => $catalogue,
+                    'catalogue' => $catalogue,
                     'opcion' => 3
              ]);
         } else {

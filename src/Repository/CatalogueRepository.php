@@ -33,7 +33,7 @@ class CatalogueRepository extends ServiceEntityRepository{
        
     }
     
-     public function findMagazinesByTitle($title)
+    public function findMagazinesByTitle($title)
     {
         return $this->createQueryBuilder('b')
                ->where("b.title LIKE :title")
@@ -45,36 +45,46 @@ class CatalogueRepository extends ServiceEntityRepository{
        
     }
     
-        public function advancedSearchCatalogue($criteria)
+    public function advancedSearchCatalogue($criteria)
     {
-              $qb =  $this->createQueryBuilder('b')
+        $qb =  $this->createQueryBuilder('b')
 //                      ->leftJoin('b.authorities','authority')
 //                ->where('authority.name = :authorityName')
 //                ->setParameter('authorityName', $criteria['authority']->getName())
-                ->andwhere("b.title LIKE :title")
-                ->andWhere('b.title != :null')->setParameter('null', serialize(null))
-                ->andWhere('b.title != :empty')->setParameter('empty', serialize([]))
-                ->setParameter("title", "%{$criteria['title']}%")
-                ->andwhere("b.publisher LIKE :publisher")
-                ->andWhere('b.publisher != :null')->setParameter('null', serialize(null))
-                ->andWhere('b.publisher != :empty')->setParameter('empty', serialize([]))
-                ->setParameter("publisher", "%{$criteria['publisher']}%")
-                ->andwhere("b.yearPublication LIKE :yearPublication")
-                ->andWhere('b.yearPublication != :null')->setParameter('null', serialize(null))
-                ->andWhere('b.yearPublication != :empty')->setParameter('empty', serialize([]))
-                ->setParameter("yearPublication", "%{$criteria['year_publication']}%")
-                ->andwhere("b.documentType LIKE :documentType")
-                ->andWhere('b.documentType != :null')->setParameter('null', serialize(null)) //not null
-                 ->andWhere('b.documentType != :empty')->setParameter('empty', serialize([]))
-                ->setParameter("documentType", "%{$criteria['document_type']}%")
-                ->getQuery();
+          ->andwhere("b.title LIKE :title")
+          ->andWhere('b.title != :null')->setParameter('null', serialize(null))
+          ->andWhere('b.title != :empty')->setParameter('empty', serialize([]))
+          ->setParameter("title", "%{$criteria['title']}%")
+          ->andwhere("b.publisher LIKE :publisher")
+          ->andWhere('b.publisher != :null')->setParameter('null', serialize(null))
+          ->andWhere('b.publisher != :empty')->setParameter('empty', serialize([]))
+          ->setParameter("publisher", "%{$criteria['publisher']}%")
+          ->andwhere("b.yearPublication LIKE :yearPublication")
+          ->andWhere('b.yearPublication != :null')->setParameter('null', serialize(null))
+          ->andWhere('b.yearPublication != :empty')->setParameter('empty', serialize([]))
+          ->setParameter("yearPublication", "%{$criteria['year_publication']}%")
+          ->andwhere("b.documentType LIKE :documentType")
+          ->andWhere('b.documentType != :null')->setParameter('null', serialize(null)) //not null
+           ->andWhere('b.documentType != :empty')->setParameter('empty', serialize([]))
+          ->setParameter("documentType", "%{$criteria['document_type']}%")
+          ->getQuery();
         //SELECT * FROM authority WHERE (name IS NOT NULL AND name LIKE '%ana%') AND (typeauth IS NOT NULL AND typeauth LIKE '%%') 
 
         $catalogos = $qb->execute();
         return $catalogos;
-     
     }
-
+    
+    public function findById($id)
+    {
+        $qb = $this->createQueryBuilder('a')
+                   ->andWhere("a.id LIKE :id")
+                   ->setParameter('id', '%'.$id.'%')
+                   ->getQuery();
+        
+        $authority = $qb->execute();
+        return $authority[0];
+            
+    }
     
     public function customSearchCatalogue($criteria)
     {
